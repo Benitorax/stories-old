@@ -1,12 +1,12 @@
 <template>
-    <div v-if="isShowed" class="buttons columns">
-        <div v-if="isAllowed" class="column is-full">
+    <transition-group name="list-commands" v-if="isShowed" class="buttons columns">
+        <div v-if="isAllowed" key="1" class="column is-full">
             <button class="button is-primary is-large is-fullwidth" @click="onThrowDice">Lancer<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
         </div>
-        <div v-if="count > 0" class="column is-full">
+        <div v-if="count > 0" key="2" class="column is-full">
             <button class="button is-danger is-large is-fullwidth" @click="onNewGame">Nouvelle partie</button>
         </div>
-    </div>
+    </transition-group>
 </template>
 
 <script>
@@ -32,7 +32,7 @@
                         number = 'second';
                     }
                 Event.$emit('rating:dice', { 
-                    message: 'Résultat ' + number + ' dé : ' + digit,
+                    message: 'Résultat du ' + number + ' dé : ' + digit,
                     colorClass: 'yellow', 
                     iconClass: 'dice-'+ DiceConverter.convertNumberToLetter(digit)
                 });
@@ -40,7 +40,8 @@
                 this.isAllowed = false;
             },
             onNewGame() {
-              Event.$emit('parameters:update', { step: 'start' });  
+                this.hideTemporary();
+                Event.$emit('parameters:update', { step: 'start' });  
             },
             hideTemporary() {
                 this.isShowed = false;
@@ -58,5 +59,10 @@
 </script>
 
 <style>
-
+    .list-commands-enter-active {
+        transition: opacity 1.5s;
+    }   
+    .list-commands-enter, .commands-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
+    }
 </style>

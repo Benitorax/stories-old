@@ -16,4 +16,4 @@ function throwBlackDiceEvent(e) {
     }
 }
 
-document.body.addEventListener("keyup", debounce((e) => throwBlackDiceEvent(e), 5000, {leading: true, trailing: false}));
+document.body.addEventListener("keyup", debounce((e) => throwBlackDiceEvent(e), 3000, {leading: true, trailing: false}));

@@ -37,7 +37,8 @@
         mounted() {
             Event.$on('start:dice', (value) => this.updateDice(value.result));
             Event.$on('parameters:update', (parameters) => this.checkNewOptions(parameters));
-            this.addMessage('Sélectionnez le mode de jeu.', null, 'file');
+            this.addMessage('Bienvenue dans le jeu de dés pour raconter des aventures extraordinaires, drôles et magiques !', null, 'paint-brush');
+            this.addMessage('Sélectionnez un mode de jeu.', null, 'file');
         },
         methods: {
             addMessage(message, colorClass = '', iconClass) {
@@ -57,7 +58,7 @@
                     dice = this.dice2Value = value;
                     number = 'second';
                 }
-                this.addMessage('Résultat ' + number + ' dé : ' + dice, null, 'dice-'+ DiceConverter.convertNumberToLetter(dice));
+                this.addMessage('Résultat du ' + number + ' dé : ' + dice, null, 'dice-'+ DiceConverter.convertNumberToLetter(dice));
             },
             checkNewOptions(parameters) {
                 if(parameters.mode) {
@@ -77,7 +78,7 @@
                 if(parameters.step === 'selectSubject') {
                     this.addMessage('Sujet : ' + parameters.subject, 'yellow', 'comment-dots');
                     if(!this.isAlreadyFreeSubject) {
-                        this.addMessage('Cliquez sur "Commencer" si vous êtes prêts, sinon optez pour un thème inventé par vos amis.', null, 'paint-brush');
+                        this.addMessage('Cliquez sur "Commencer" si vous êtes prêt(e), sinon optez pour un thème inventé par vos amis.', null, 'paint-brush');
                         this.isAlreadyFreeSubject = true;
                     }
 

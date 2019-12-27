@@ -1,13 +1,10 @@
 <template>
     <div>
-        <OptionsCommand v-if="isOptionsStep"></OptionsCommand>
-        <GameCommand v-else-if="step === 'playing'" :mode="mode" :step="step"></GameCommand>
-        <RatingCommand v-else-if="step === 'rating'" :step="step"></RatingCommand>
-        <div v-else-if="step == 'end'" class="buttons columns">
-            <div class="column is-full">
-                <button class="button is-success is-large is-fullwidth">Nouvelle partie</button>
-            </div>
-        </div>
+        <transition name="commands">
+            <OptionsCommand v-if="isOptionsStep"></OptionsCommand>
+            <GameCommand v-else-if="step === 'playing'" :mode="mode" :step="step"></GameCommand>
+            <RatingCommand v-else-if="step === 'rating'" :step="step"></RatingCommand>
+        </transition>
     </div>
 </template>
 
@@ -43,4 +40,10 @@
 </script>
 
 <style>
+    .commands-enter-active {
+        transition: opacity 1.5s;
+    }   
+    .commands-enter, .commands-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
+    }
 </style>

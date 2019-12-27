@@ -4,7 +4,6 @@
             <span class="is-size-4">Dés restants : {{ diceLeft }}</span>
         </div>
         <transition name="commands">
-
             <div v-if="isShowed" class="buttons columns">
                 <div v-if="isThrowDiceShowed" class="column is-full">
                     <button class="button is-primary is-large is-fullwidth" @click="throwDice">Lancer<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
@@ -138,8 +137,7 @@
     }
     .commands-enter-active {
         transition: opacity 1.5s;
-    }
-    
+    }   
     .commands-enter, .commands-leave-to /* .fade-leave-active below version 2.1.8 */ {
         opacity: 0;
     }
