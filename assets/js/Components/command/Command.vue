@@ -1,8 +1,8 @@
 <template>
     <div>
         <OptionsCommand v-if="isOptionsStep"></OptionsCommand>
-        <GameCommand v-else-if="step === 'playing'" :mode="mode"></GameCommand>
-        <RatingCommand v-else-if="step === 'rating'"></RatingCommand>
+        <GameCommand v-else-if="step === 'playing'" :mode="mode" :step="step"></GameCommand>
+        <RatingCommand v-else-if="step === 'rating'" :step="step"></RatingCommand>
         <div v-else-if="step == 'end'" class="buttons columns">
             <div class="column is-full">
                 <button class="button is-success is-large is-fullwidth">Nouvelle partie</button>

@@ -17,5 +17,9 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "lodash.debounce": "^4.0.8",
+        "lodash.throttle": "^4.1.1"
     }
 }

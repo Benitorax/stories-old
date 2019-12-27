@@ -129,10 +129,18 @@ class SubjectData
         "Une relation compliquée avec les burpees.",
         "Mon meilleur ami est un kangourou.",
         "Kim Jong-Un, un membre de la famille.",
-        "Champion du monde des roulades dans les escaliers.",
-        "J'ai été élevé par des escargots.'",
+        "Champion(ne) du monde des roulades dans les escaliers.",
+        "J'ai été élevé(e) par des escargots.'",
         "Mes parents sont accros au canabis.",
-        "Mes parents sont accros aux jeux vidéos."
+        "Mes parents sont accros aux jeux vidéos.",
+        "Mon Airbnb chez la reine d'Angleterre.",
+        "Je suis militant(e) du Rassemblement National (Front National).",
+        "Je suis responsable des grèves de train.",
+        "Mes parents préfèrent leur chien à moi.",
+        "Je suis videur pour une maison de retraite.",
+        "On m'a confondu(e) avec une vache.",
+        "Je suis plus intelligent(e) avec des pantoufles aux pieds.",
+        "Mon animal de compagnie est raciste."
     ];
 
     public function getOneSubject() {

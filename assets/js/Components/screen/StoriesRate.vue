@@ -18,7 +18,7 @@ export default {
         mounted() {
             Event.$on('rating:dice', (message) => this.addMessage(message));
             this.messages.push({
-                    message: 'Lancer le dé pour connaître votre note.',
+                    message: 'Lancez le dé pour vous noter.',
                     colorClass: '',
                     iconClass: 'paint-brush'
                 });
@@ -37,7 +37,13 @@ export default {
                         colorClass: '',
                         iconClass: 'paint-brush'
                     });
+                    this.messages.push({
+                        message: 'ESPACE pour attribuer un 2e lancer.',
+                        colorClass: '',
+                        iconClass: 'paint-brush'
+                    });
                 }
+                this.count +=1;
             }
         }
     };

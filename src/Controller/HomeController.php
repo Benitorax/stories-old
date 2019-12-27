@@ -5,28 +5,17 @@ namespace App\Controller;
 use App\Manager\SubjectData;
 use App\Manager\AudienceDice;
 use App\Manager\StoryTellerDice;
-use Symfony\Component\Mercure\Update;
-use Symfony\Component\Mercure\Publisher;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Mercure\PublisherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/main", name="main", methods={"GET"})
+     * @Route("/", name="main", methods={"GET"})
      */
     public function main()
     {
         return $this->render('home/main.html.twig', [
-        ]);
-    }
-
-    /**
-     * @Route("/audience", name="audience", methods={"GET"})
-     */
-    public function audience() {
-        return $this->render('home/audience.html.twig', [
         ]);
     }
 

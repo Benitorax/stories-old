@@ -4,7 +4,7 @@
             <button class="button is-primary is-large is-fullwidth" @click="onThrowDice">Lancer<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
         </div>
         <div v-if="count > 0" class="column is-full">
-            <button class="button is-primary is-large is-fullwidth" @click="onNewGame">Nouvelle partie</button>
+            <button class="button is-danger is-large is-fullwidth" @click="onNewGame">Nouvelle partie</button>
         </div>
     </div>
 </template>
@@ -13,6 +13,7 @@
     import DiceConverter from './../DiceConverter';
 
     export default {
+        props: ['step'],
         data() {
             return {
                 isShowed: true,
@@ -31,8 +32,8 @@
                         number = 'second';
                     }
                 Event.$emit('rating:dice', { 
-                    message: 'Résulat ' + number + ' dé : ' + digit,
-                    colorClass: null, 
+                    message: 'Résultat ' + number + ' dé : ' + digit,
+                    colorClass: 'yellow', 
                     iconClass: 'dice-'+ DiceConverter.convertNumberToLetter(digit)
                 });
                 this.count += 1;
@@ -44,8 +45,15 @@
             hideTemporary() {
                 this.isShowed = false;
                 setTimeout(() => this.isShowed = true, 500);
+            },
+            allowSecondDice() {
+                if(this.step !== 'rating') return;
+                if(this.count < 2) this.isAllowed = true;
             }
-        }
+        },
+        mounted() {
+            Event.$on('event:spacebar', () => this.allowSecondDice());
+        },
     }
 </script>
 

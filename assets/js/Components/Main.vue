@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    /* start selectMode startDice selectSubject playing rating*/
+    /* list of steps: start, selectMode, startDice, selectSubject, playing, rating*/
     import StoriesScreen from './screen/StoriesScreen';
     import Command from './command/Command';
 
@@ -34,8 +34,7 @@
             updateParameters(object) {
                 console.log('Update:', object);
                 this.parameters = Object.assign({}, this.parameters, object);
-            },
-
+            }
         }
     };
 </script>

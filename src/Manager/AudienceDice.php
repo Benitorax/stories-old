@@ -23,7 +23,8 @@ class AudienceDice
         "Certains doutent encore",
         "Le monde est d'accord",
         "C'était quel jour ?",
-        "Tu nous cache la vérité"
+        "Tu nous cache la vérité",
+        "Ton chat il en pense quoi ?"
     ];
 
     public function getOneSentence() {

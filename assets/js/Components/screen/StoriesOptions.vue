@@ -1,22 +1,26 @@
 <template>
     <div>                
-        <Message v-for="message in messages" :key="message.message" :message='message'></Message>
+        <Message v-for="(message, index) in messages" :key="index" :message='message'></Message>
+        <ModalSubject v-if="showModalSubject" @onSubmit="onSubmitModal"/>
     </div>
 </template>
 
 <script>
     import Message from './Message';
+    import ModalSubject from './ModalSubject';
     import DiceConverter from './../DiceConverter';
 
     export default {
-        components: { Message },
+        components: { Message, ModalSubject },
         props: ['parameters'],
         data() {
             return {
                 messages: [],
                 selectedMode: null,
                 dice1Value: null,
-                dice2Value: null
+                dice2Value: null,
+                isAlreadyFreeSubject: false,
+                showModalSubject: false
             }
         },
         computed: {
@@ -53,26 +57,36 @@
                     dice = this.dice2Value = value;
                     number = 'second';
                 }
-                this.addMessage('Résulat ' + number + ' dé : ' + dice, null, 'dice-'+ DiceConverter.convertNumberToLetter(dice));
+                this.addMessage('Résultat ' + number + ' dé : ' + dice, null, 'dice-'+ DiceConverter.convertNumberToLetter(dice));
             },
             checkNewOptions(parameters) {
                 if(parameters.mode) {
                     let mode = 'Normal';
-                    if(parameters.mode !== 'normal') mode = 'Dé blanc'
+                    if(parameters.mode !== 'normal') mode = 'Avec dé blanc'
                     this.addMessage('Mode "' + mode + '" sélectionné.', null, 'location-arrow');
                     return;
                 }
 
                 if(parameters.step === 'freeSubject') {
+                    setTimeout(() => this.showModalSubject = true, 1500);
+                    this.isAlreadyFreeSubject = true;
                     this.addMessage('En attente du sujet.', null, 'spinner');
                     return;
                 }
 
                 if(parameters.step === 'selectSubject') {
                     this.addMessage('Sujet : ' + parameters.subject, 'yellow', 'comment-dots');
-                    this.addMessage('Cliquez sur "Commencer" si vous êtes prêts, sinon optez pour un thème inventé par vos amis.', null, 'paint-brush');
+                    if(!this.isAlreadyFreeSubject) {
+                        this.addMessage('Cliquez sur "Commencer" si vous êtes prêts, sinon optez pour un thème inventé par vos amis.', null, 'paint-brush');
+                        this.isAlreadyFreeSubject = true;
+                    }
+
                     return;
                 }
+            },
+            onSubmitModal(subject) {
+                this.showModalSubject = false;
+                Event.$emit('parameters:update', { subject: subject, step: 'selectSubject' });
             }
         }
     };
