@@ -25,7 +25,6 @@ export default {
         },
         methods: {
             addMessage(message) {
-                console.log('addMessage', message)
                 this.messages.push({
                     message: message.message,
                     colorClass: message.colorClass,

@@ -65,7 +65,7 @@
                         this.hideTemporary();
                         Ajax.get('subject').then(({data})=>{
                             Event.$emit('parameters:update', { subject: data.subject, step: 'selectSubject' });
-                        }).catch(()=> console.log('error from fetching subject'));
+                        });
                     }
                 }       
             },

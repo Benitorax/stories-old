@@ -32,7 +32,6 @@
         },
         methods: {
             updateParameters(object) {
-                console.log('Update:', object);
                 this.parameters = Object.assign({}, this.parameters, object);
             }
         }

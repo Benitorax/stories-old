@@ -15,7 +15,7 @@
                     <button class="button is-outlined is-large is-fullwidth" @click="throwWhiteDice">Lancer dé blanc</button>
                 </div>
                 
-                <div v-if="blackDiceCount < 3 && diceLeft > 0" class="column is-full button-audience">
+                <div v-if="blackDiceCount < 3 && diceLeft > 0 && diceCount > 0" class="column is-full button-audience">
                     <button class="button is-black is-large is-fullwidth">ESPACE pour lancer<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                         iconClass: 'cube',
                         colorClass: color
                     });
-                }).catch((error) => console.log('error from throwing dice', error));
+                });
             },
             throwWhiteDice() {
                 this.hideTemporary();
@@ -76,11 +76,10 @@
                         iconClass: 'cube',
                         colorClass: 'white'
                     });
-                }).catch((error) => console.log('error from throwing white dice', error));
+                });
             },
             throwBlackDice() {
                 this.blackDiceCount += 1;
-                console.log('throw black dice');
                 this.hideTemporary();
                 Ajax.get('dice/black').then(({data}) => {
                     Event.$emit('game:message', { 
@@ -88,7 +87,7 @@
                         iconClass: 'cube',
                         colorClass: 'black'
                     });
-                }).catch((error) => console.log('error from throwing black dice', error));
+                });
             },
             defineColor() {
                 let c = this.diceCount;
