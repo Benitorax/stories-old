@@ -20,6 +20,16 @@ class HomeController extends AbstractController
     }
 
     /**
+     * @Route("/api/dice/number", name="stories_dice_number", methods={"GET"})
+     */
+    public function getRandomNumber()
+    {
+        return $this->json([
+            'number' => rand(1, 6)
+        ]);
+    }
+
+    /**
      * @Route("/api/subject", name="stories_subject", methods={"GET"})
      */
     public function getRandomSubject()

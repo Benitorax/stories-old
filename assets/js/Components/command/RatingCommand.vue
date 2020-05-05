@@ -11,6 +11,7 @@
 
 <script>
     import DiceConverter from './../DiceConverter';
+    import Ajax from './../Ajax';
 
     export default {
         props: ['step'],
@@ -24,20 +25,22 @@
         methods: {
             onThrowDice() {
                 this.hideTemporary();
-                let digit = Math.floor(Math.random() * 6) + 1;
-                    let number = '';
+                Ajax.get('dice/number').then(({data}) => {
+                    let digit = data.number
+                    let ordinalNumber = '';
                     if(this.count === 0) {
-                        number = 'premier';
+                        ordinalNumber = 'premier';
                     } else {
-                        number = 'second';
+                        ordinalNumber = 'second';
                     }
-                Event.$emit('rating:dice', { 
-                    message: 'Résultat du ' + number + ' dé : ' + digit,
-                    colorClass: 'yellow', 
-                    iconClass: 'dice-'+ DiceConverter.convertNumberToLetter(digit)
+                    Event.$emit('rating:dice', { 
+                        message: 'Résultat du ' + ordinalNumber + ' dé : ' + digit,
+                        colorClass: 'yellow', 
+                        iconClass: 'dice-'+ DiceConverter.convertNumberToLetter(digit)
+                    });
+                    this.count += 1;
+                    this.isAllowed = false;
                 });
-                this.count += 1;
-                this.isAllowed = false;
             },
             onNewGame() {
                 this.hideTemporary();

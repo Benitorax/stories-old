@@ -51,22 +51,26 @@
                 if(this.count ===0) {
                     this.hideTemporary();
                     this.count += 1;
-                    this.dice1Value = Math.floor(Math.random() * 6) + 1;
-                    Event.$emit('start:dice', { result: this.dice1Value });
+                    Ajax.get('dice/number').then(({data}) => {
+                        this.dice1Value = data.number;
+                        Event.$emit('start:dice', { result: this.dice1Value });
+                    });
                 } else if(this.count ===1) {
                     this.count += 1;
-                    this.dice2Value = Math.floor(Math.random() * 6) + 1;
-                    Event.$emit('start:dice', { result: this.dice2Value });
-                    
-                    if(this.dice2Value === this.dice1Value) {
-                        this.hideLonger();
-                        this.emitFreeSubjectStep()
-                    } else {
-                        this.hideTemporary();
-                        Ajax.get('subject').then(({data})=>{
-                            Event.$emit('parameters:update', { subject: data.subject, step: 'selectSubject' });
-                        });
-                    }
+                    Ajax.get('dice/number').then(({data}) => {
+                        this.dice2Value = data.number;
+                        Event.$emit('start:dice', { result: this.dice2Value });
+                        
+                        if(this.dice2Value === this.dice1Value) {
+                            this.hideLonger();
+                            this.emitFreeSubjectStep()
+                        } else {
+                            this.hideTemporary();
+                            Ajax.get('subject').then(({data})=>{
+                                Event.$emit('parameters:update', { subject: data.subject, step: 'selectSubject' });
+                            });
+                        }
+                    });
                 }       
             },
             onClickReady() {
