@@ -13,7 +13,7 @@
 
     export default {
         components: { StoriesOptions, StoriesGame, StoriesRate},
-        props: ['parameters'],
+        props: ['parameters', 'users'],
         computed: {
             isOptionsStep() {
                 return ['start', 'startDice', 'selectSubject', 'freeSubject'].includes(this.step);

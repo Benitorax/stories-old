@@ -4,6 +4,7 @@ namespace App\Manager;
 class SubjectData
 {
     const SUBJECTS = [
+        "J’ai été enlevé(e) par des extra-terrestres",
         "Je lis l'avenir dans la purée de pommes de terres.",
         "Je vous raconte mon prochain film.",
         "J'ai passé une très bonne soirée avec une fée...",
@@ -43,6 +44,7 @@ class SubjectData
         "Mon programme politique pour la paix sur Terre.",
         "J'ai pris des cours de savoir-vivre.",
         "J'ai pas l'air comme ça, mais j'ai attaqué une banque.",
+        "La panne d'essence...",
         "Mon inoubliable soirée pyjama.",
         "Tu sais ce que j'ai retrouvé dans un nem ?",
         "J'ai un chien qui parle.",
@@ -52,6 +54,8 @@ class SubjectData
         "Comment j'ai sali mon t-shirt.",
         "Pourquoi je ne prends qu'une douche tous les six mois.",
         "Comment un gnou m'a adopté(e).",
+        "Comment j'ai adopté un gnou",
+        "Comment j'ai adopté un dragon",
         "L'histoire du poisson qui n'aimait pas l'eau.",
         "L'entretien qui a changé ma vie.",
         "Je fais des supers imitations avec ma bouche.",
@@ -65,6 +69,7 @@ class SubjectData
         "Elle sera prête mardi.",
         "La fôret maudite.",
         "J'ai sauvé la planète mais personne ne le sait.",
+        "Je suis un(e) magichien(ne)",
         "Le cimetière en folie.",
         "Je me suis fait(e) virer de l'école des magiciens.",
         "Moi aussi, j'ai marché sur la Lune.",

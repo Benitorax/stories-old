@@ -2,7 +2,7 @@
     <div v-if="isShowed" class="buttons columns">
         <div v-if="showModeOptions" class="column is-full">
             <button class="button is-link is-large is-fullwidth" @click="onClickNormal">Normal</button>
-            <button class="button is-info is-large is-fullwidth" @click="onClickWhiteDice">Avec dé blanc</button>
+            <button class="button is-info is-large is-fullwidth has-margin-top-2" @click="onClickWhiteDice">Avec dé blanc</button>
         </div>
         <div v-else-if="count < 2" class="column is-full">
             <button class="button is-primary is-large is-fullwidth" @click="onThrowDice">Lancer<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
@@ -13,7 +13,7 @@
                     <div class="column is-full">
                         <button class="button is is-danger is-large is-fullwidth" @click="onClickReady">Commencer</button>
                     </div>
-                    <div v-if="!isFreeSubject" class="column is-full">
+                    <div v-if="!isFreeSubject" class="column is-full has-margin-top-4">
                         <button class="button is-primary is-light is-large is-fullwidth" @click="onClickFreeSubject">Thème libre</button>
                     </div>
                 </div>
@@ -63,6 +63,7 @@
                         
                         if(this.dice2Value === this.dice1Value) {
                             this.hideLonger();
+                            Event.$emit('message:add', { iconClass: 'paint-brush', message: 'Vous avez fait un double. Les autres joueurs proposent un thème inventé.' });
                             this.emitFreeSubjectStep()
                         } else {
                             this.hideTemporary();

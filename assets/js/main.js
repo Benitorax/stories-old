@@ -1,4 +1,4 @@
-require('../css/app.css');
+require('../css/app.scss');
 var debounce = require('lodash.debounce');
 import Main from './components/Main';
 

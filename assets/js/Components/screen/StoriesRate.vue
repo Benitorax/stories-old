@@ -16,32 +16,17 @@ export default {
             }
         },
         mounted() {
-            Event.$on('rating:dice', (message) => this.addMessage(message));
-            this.messages.push({
-                    message: 'Lancez le dé pour vous noter.',
-                    colorClass: '',
-                    iconClass: 'paint-brush'
-                });
+            Event.$on('rating:dice', (message) => this.addMessage(message.message, message.colorClass, message.iconClass));
+            Event.$on('message:add', object => this.addMessage(object.message, '', object.iconClass));
+            this.addMessage('Lancez le dé pour vous noter.', '', 'paint-brush');
         },
         methods: {
-            addMessage(message) {
+            addMessage(message, colorClass = '', iconClass) {
                 this.messages.push({
-                    message: message.message,
-                    colorClass: message.colorClass,
-                    iconClass: message.iconClass
+                    message: message,
+                    colorClass: colorClass,
+                    iconClass: iconClass
                 });
-                if(this.count === 0) {
-                    this.messages.push({
-                        message: 'Vos amis peuvent vous accorder un 2e lancer.',
-                        colorClass: '',
-                        iconClass: 'paint-brush'
-                    });
-                    this.messages.push({
-                        message: 'ESPACE pour attribuer un 2e lancer.',
-                        colorClass: '',
-                        iconClass: 'paint-brush'
-                    });
-                }
                 this.count +=1;
             }
         }

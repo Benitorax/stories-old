@@ -1,9 +1,19 @@
 <template>
     <div>
+        <div class="card has-margin-bottom-5">
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-left has-text-link"><i class="fas fa-user fa-3x"></i></div>
+                    <div class="media-content">
+                        <div class="title is-3"> {{ user.username }}</div>    
+                    </div>
+                </div>
+            </div>
+        </div>
         <transition name="commands">
             <OptionsCommand v-if="isOptionsStep"></OptionsCommand>
             <GameCommand v-else-if="step === 'playing'" :mode="mode" :step="step"></GameCommand>
-            <RatingCommand v-else-if="step === 'rating'" :step="step"></RatingCommand>
+            <RatingCommand v-else-if="step === 'rating'" :user="user" :users="users" :step="step"></RatingCommand>
         </transition>
     </div>
 </template>
@@ -21,7 +31,7 @@
             SelectModeCommand,
             RatingCommand
         },
-        props: ['parameters'],
+        props: ['parameters', 'user', 'users'],
         computed: {
             step() {
                 return this.parameters.step;
@@ -34,7 +44,7 @@
             },
             isOptionsStep() {
                 return ['start', 'startDice', 'selectSubject', 'freeSubject'].includes(this.parameters.step);
-            },
+            }
         }
     };
 </script>
