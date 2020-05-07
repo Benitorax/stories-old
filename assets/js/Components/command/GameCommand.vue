@@ -56,7 +56,7 @@
         },
         methods: {
             throwDice() {
-                this.hideTemporary();
+                this.isShowed = false;
                 let color = this.defineColor();
                 this.diceCount += 1;
                 Ajax.get('dice/'+ color).then(({data}) => {
@@ -65,10 +65,11 @@
                         iconClass: 'cube',
                         colorClass: color
                     });
+                    this.isShowed = true;
                 });
             },
             throwWhiteDice() {
-                this.hideTemporary();
+                this.isShowed = false;
                 this.whiteDiceCount += 1;
                 Ajax.get('dice/white').then(({data}) => {
                     Event.$emit('game:message', { 
@@ -76,17 +77,19 @@
                         iconClass: 'cube',
                         colorClass: 'white'
                     });
+                    this.isShowed = true;
                 });
             },
             throwBlackDice() {
                 this.blackDiceCount += 1;
-                this.hideTemporary();
+                this.isShowed = false;
                 Ajax.get('dice/black').then(({data}) => {
                     Event.$emit('game:message', { 
                         message: data.message, 
                         iconClass: 'cube',
                         colorClass: 'black'
                     });
+                    this.isShowed = true;
                 });
             },
             defineColor() {
@@ -104,15 +107,8 @@
                     return 'dark-blue';
                 }
             },
-            hideTemporary() {
-                this.isShowed = false;
-                setTimeout(() => this.isShowed = true, 2000); // TO DO: Change to 2000ms
-            },
-            hideDefinitively() {
-                this.isShowed = false;
-            },
             onRating() {
-                this.hideDefinitively();
+                this.isShowed = false;
                 Event.$emit('parameters:update', { step: 'rate' });
             },
             throwBlackDiceEvent() {
