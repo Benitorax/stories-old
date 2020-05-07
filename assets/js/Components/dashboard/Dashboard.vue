@@ -34,7 +34,7 @@
                     <form v-on:submit.prevent="addPlayer">
                         <div class="field has-addons">
                             <div class="control">
-                                <input ref="username" class="input is-large" type="text" placeholder="Nom joueur" v-model="username" />
+                                <input ref="username" class="input is-large" type="text" placeholder="Nom joueur" v-model="username" maxlength="15" />
                             </div>
                             <div class="control">
                                 <button :disabled="username.length < 1" class="button is-info is-large">Ajouter</button>

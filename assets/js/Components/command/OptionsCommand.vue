@@ -25,6 +25,7 @@
 
 <script>
     import SubjectModal from './SubjectModal';
+    import DiceConverter from './../DiceConverter';
     import Ajax from './../Ajax';
 
     export default {
@@ -52,18 +53,18 @@
             },
             onThrowDice() {
                 this.showThrowDice = false;
-                if(this.rolledDiceCount ===0) {
+                if(this.rolledDiceCount === 0) {
                     this.rolledDiceCount += 1;
                     Ajax.get('dice/number').then(({data}) => {
                         this.dice1Value = data.number;
-                        Event.$emit('start:dice', { result: this.dice1Value });
+                        this.writeRollDiceMessage('premier', data.number)
                         this.showThrowDice = true;
                     });
-                } else if(this.rolledDiceCount ===1) {
+                } else if(this.rolledDiceCount === 1) {
                     this.rolledDiceCount += 1;
                     Ajax.get('dice/number').then(({data}) => {
                         this.dice2Value = data.number;
-                        Event.$emit('start:dice', { result: this.dice2Value });
+                        this.writeRollDiceMessage('second', data.number)
                         
                         if(this.dice2Value === this.dice1Value) {
                             Event.$emit('message:add', { iconClass: 'paint-brush', message: 'Vous avez fait un double. Les autres joueurs proposent un thème inventé.' });
@@ -81,6 +82,9 @@
                         }
                     });
                 }       
+            },
+            writeRollDiceMessage(ordinalNumber, diceNumber) {
+                Event.$emit('message:add', { iconClass: 'dice-'+ DiceConverter.convertNumberToLetter(diceNumber), message: 'Résultat du ' + ordinalNumber + ' dé : ' + diceNumber });
             },
             onClickStart() {
                 Event.$emit('parameters:update', { step: 'play' });

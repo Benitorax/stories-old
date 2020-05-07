@@ -16,8 +16,7 @@ export default {
             }
         },
         mounted() {
-            Event.$on('rating:dice', (message) => this.addMessage(message.message, message.colorClass, message.iconClass));
-            Event.$on('message:add', object => this.addMessage(object.message, '', object.iconClass));
+            Event.$on('message:add', object => this.addMessage(object.message, object.colorClass, object.iconClass));
             this.addMessage('Lancez le dé pour vous noter.', '', 'paint-brush');
         },
         methods: {

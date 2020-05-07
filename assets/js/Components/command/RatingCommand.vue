@@ -1,10 +1,11 @@
 <template>
     <transition-group name="list-commands" v-if="isShowed" class="buttons columns">
-        <div key="1" class="column is-full">
-            <button :disabled="isAllowed == false" class="button is-primary is-large is-fullwidth" @click="onThrowDice">Lancer<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
+        <div key="1" v-if="isAllowedToRollDice" class="column is-full has-margin-bottom-4">
+            <button class="button is-primary is-large is-fullwidth" @click="onThrowDice">Lancer<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
         </div>
-        <div v-if="count > 0" key="2" class="column is-full has-margin-top-4">
-            <button class="button is-danger is-large is-fullwidth" @click="onNewGame">{{ buttonText }}</button>
+        <div v-if="rolledDiceCount > 0" key="2" class="column is-full">
+            <button v-if="isNoUsersRemaining" class="button is-danger is-large is-fullwidth" @click="onResultStep">Voir classement</button>
+            <button v-else class="button is-danger is-large is-fullwidth" @click="onStartStep">Joueur suivant</button>
         </div>
     </transition-group>
 </template>
@@ -18,54 +19,55 @@
         data() {
             return {
                 isShowed: true,
-                isAllowed: true,
-                count: 0,
+                isAllowedToRollDice: true,
+                rolledDiceCount: 0,
                 firstDigit: 0,
             }
         },
         computed: {
-            buttonText() {
+            isNoUsersRemaining() {
                 let users = this.users.filter(user => user.points == '');
-                if(users.length == 0) return 'Voir classement';
-                else return 'Joueur suivant';
+                if(users.length == 0) return true;
+                else return false;
             }
         },
         methods: {
             onThrowDice() {
-                this.hideTemporary();
+                this.isShowed = false;
                 Ajax.get('dice/number').then(({data}) => {
                     let digit = data.number;
                     let ordinalNumber = '';
-                    if(this.count === 0) {
+                    if(this.rolledDiceCount === 0) {
                         ordinalNumber = 'premier';
                         this.firstDigit = digit;
                     } else ordinalNumber = 'second';
                     
-                    Event.$emit('rating:dice', { 
-                        message: 'Résultat du ' + ordinalNumber + ' dé : ' + digit,
-                        colorClass: 'yellow', 
-                        iconClass: 'dice-'+ DiceConverter.convertNumberToLetter(digit)
+                    Event.$emit('message:add', { message: 'Résultat du ' + ordinalNumber + ' dé : ' + digit,
+                        colorClass: 'yellow', iconClass: 'dice-'+ DiceConverter.convertNumberToLetter(digit)
                     });
                     Event.$emit('user:update', { points: this.firstDigit + digit, try: 2 });
-                    if(this.count === 0) {
+                    if(this.rolledDiceCount === 0) {
                         Event.$emit('message:add', { iconClass: 'paint-brush', message: this.user.username + ' méritait mieux ? Les autres joueurs peuvent accorder un 2e lancer.' });
                         Event.$emit('message:add', { iconClass: 'paint-brush', message: 'ESPACE pour attribuer un 2e lancer.' });                    
+                    } else {
+                        Event.$emit('message:add', { message: 'Note finale : ' + (this.firstDigit + digit), colorClass: 'yellow', iconClass: 'paint-brush' });
                     }
-                    this.count += 1;
-                    this.isAllowed = false;
+                    this.rolledDiceCount += 1;
+                    this.isAllowedToRollDice = false;
+                    this.isShowed = true;
                 });
             },
-            onNewGame() {
-                this.hideTemporary();
-                Event.$emit('parameters:update', { step: 'start', mode: '', subject: '' });  
-            },
-            hideTemporary() {
+            onResultStep() {
                 this.isShowed = false;
-                setTimeout(() => this.isShowed = true, 500);
+                Event.$emit('parameters:update', { step: 'result', mode: '', subject: '' });  
+            },
+            onStartStep() {
+                this.isShowed = false;
+                Event.$emit('parameters:update', { step: 'start', mode: '', subject: '' });  
             },
             allowSecondDice() {
                 if(this.step !== 'rate') return;
-                if(this.count < 2) this.isAllowed = true;
+                if(this.rolledDiceCount < 2) this.isAllowedToRollDice = true;
             }
         },
         mounted() {

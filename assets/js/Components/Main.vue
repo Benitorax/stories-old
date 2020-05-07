@@ -28,7 +28,7 @@
         data() {
             return {
                 parameters: {
-                    step: 'start',
+                    step: 'rate',
                     mode: '',
                     subject: ''
                 },
@@ -55,16 +55,9 @@
             updateParameters(object) {
                 if(object.step =='start') {
                     let users = this.users.filter(user => user.points == '');
-                    if(users.length == 0) {
-                        this.parameters = Object.assign({}, this.parameters, {step: 'result', mode:'', subject:''});
-                        this.user = {};
-                    }
-                    else {
-                        this.user = users[Math.floor(Math.random() * users.length)];
-                        this.parameters = Object.assign({}, this.parameters, object);
-                    }
+                    this.user = users[Math.floor(Math.random() * users.length)];
                 }
-                else this.parameters = Object.assign({}, this.parameters, object);
+                this.parameters = Object.assign({}, this.parameters, object);
             },
             updateUsers(data) {
                 this.users = Object.assign([], data.users);
