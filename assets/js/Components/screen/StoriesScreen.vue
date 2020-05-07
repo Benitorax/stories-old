@@ -1,6 +1,6 @@
 <template>
     <div>
-        <StoriesOptions v-if="isOptionsStep" :parameters="parameters"></StoriesOptions>
+        <StoriesOptions v-if="step === 'start'" :parameters="parameters"></StoriesOptions>
         <StoriesGame v-else-if="step === 'playing'" :parameters="parameters"></StoriesGame>
         <StoriesRate v-else-if="step === 'rating'"></StoriesRate>
     </div>
@@ -15,9 +15,6 @@
         components: { StoriesOptions, StoriesGame, StoriesRate},
         props: ['parameters', 'users'],
         computed: {
-            isOptionsStep() {
-                return ['start', 'startDice', 'selectSubject', 'freeSubject'].includes(this.step);
-            },
             step() {
                 return this.parameters.step;
             },

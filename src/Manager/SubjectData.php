@@ -79,14 +79,19 @@ class SubjectData
         "Pardon, j'ai perdu la mémoire...",
         "Il y a un zombi parmi nous.",
         "Elle sera prête mardi.",
+        "La fête à l'enterrement de ma grand-mère.",
         "La fôret maudite.",
+        "J'habite dans un nid de pigeons.",
         "J'ai sauvé la planète mais personne ne le sait.",
         "Je suis un(e) magichien(ne).",
         "Le cimetière en folie.",
+        "Ma voisine est millionnaire.",
         "Je me suis fait(e) virer de l'école des magiciens.",
+        "J'ai les oreilles sur les pieds.",
         "Moi aussi, j'ai marché sur la Lune.",
         "Prisonnier(ère) de la tribu des Grobisous.",
         "La vengeance des marionnettes.",
+        "Mon voisin dort dans un cercueil.",
         "En chassant les papillons, j'ai attrapé une fée.",
         "Mon colocataire est un fantôme.",
         "Je n'irai plus jamais au club des vampires.",
@@ -163,7 +168,7 @@ class SubjectData
         "Je suis plus intelligent(e) avec des pantoufles aux pieds.",
         "Mon animal de compagnie est raciste.",
         "Je vis dans un jeu vidéo.",
-        "Il fait tout le temps nuit.",
+        "Il fait tout le temps nuit dans ma ville.",
         "Il pleut à chaque fois que je sors."
     ];
 

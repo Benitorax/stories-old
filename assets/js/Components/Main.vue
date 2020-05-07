@@ -18,7 +18,7 @@
 </template>
 
 <script>
-    /* list of steps: waiting, start, selectMode, startDice, selectSubject, playing, rating, result */
+    /* list of steps: waiting, start, playing, rating, result */
     import StoriesScreen from './screen/StoriesScreen';
     import Command from './command/Command';
     import Dashboard from './dashboard/Dashboard';
@@ -28,12 +28,17 @@
         data() {
             return {
                 parameters: {
-                    step: 'waiting',
+                    step: 'start',
                     mode: '',
                     subject: ''
                 },
-                users: [],
-                user: {}
+                users: [
+                    {id:1, username: 'Hervé', points:0, try:0 },
+                    {id:2, username: 'Bernard', points:0, try:0 }
+                ],
+                user: {
+                    id:1, username: 'Hervé', points:0, try:0 
+                }
             }
         },
         computed: {

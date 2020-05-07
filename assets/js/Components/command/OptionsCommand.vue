@@ -1,99 +1,103 @@
 <template>
-    <div v-if="isShowed" class="buttons columns">
-        <div v-if="showModeOptions" class="column is-full">
-            <button class="button is-link is-large is-fullwidth" @click="onClickNormal">Normal</button>
-            <button class="button is-info is-large is-fullwidth has-margin-top-2" @click="onClickWhiteDice">Avec dé blanc</button>
+    <div class="buttons columns">
+        <div v-if="showSelectMode" class="column is-full">
+            <button class="button is-link is-large is-fullwidth" @click="onSelectMode('normal')">Normal</button>
+            <button class="button is-info is-large is-fullwidth has-margin-top-2" @click="onSelectMode('whiteDice')">Avec dé blanc</button>
         </div>
-        <div v-else-if="count < 2" class="column is-full">
+        <div v-if="showThrowDice" class="column is-full">
             <button class="button is-primary is-large is-fullwidth" @click="onThrowDice">Lancer<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
         </div>
-        <div v-else-if="count = 2" class="column is-full">
+        <div v-if="showStartButton" class="column is-full">
             <div>
                 <div class="buttons columns">
                     <div class="column is-full">
-                        <button class="button is is-danger is-large is-fullwidth" @click="onClickReady">Commencer</button>
+                        <button class="button is is-danger is-large is-fullwidth" @click="onClickStart">Commencer</button>
                     </div>
-                    <div v-if="!isFreeSubject" class="column is-full has-margin-top-4">
+                    <div v-if="showFreeSubjectButton" class="column is-full has-margin-top-4">
                         <button class="button is-primary is-light is-large is-fullwidth" @click="onClickFreeSubject">Thème libre</button>
                     </div>
                 </div>
             </div>
         </div>
+        <SubjectModal v-if="showSubjectModal" @onSubmit="onSubmitModal"/>
     </div>
 </template>
 
 <script>
+    import SubjectModal from './SubjectModal';
     import Ajax from './../Ajax';
+
     export default {
+        components: { SubjectModal },
         data() {
             return {
-                showModeOptions: true,
-                count: 0,
+                rolledDiceCount: 0,
                 dice1Value: null,
                 dice2Value: null,
-                isShowed: true,
-                isFreeSubject: false
+                showSelectMode: true,
+                showThrowDice: false,
+                showStartButton: false,
+                showFreeSubjectButton: false,
+                showSubjectModal: false
             }
         },
         methods: {
-            onClickNormal() {
-                this.hideTemporary();
-                this.showModeOptions = false;
-                Event.$emit('parameters:update', { mode: 'normal', step:'startDice' });
-            },
-            onClickWhiteDice() {
-                this.hideTemporary();
-                this.showModeOptions = false;
-                Event.$emit('parameters:update', { mode: 'whiteDice', step:'startDice' });
+            onSelectMode(mode) {
+                this.showSelectMode = false;
+                Event.$emit('parameters:update', { mode: mode });
+                let modeForMessage = 'Normal';
+                if(mode !== 'normal') modeForMessage = 'Avec dé blanc'
+                Event.$emit('message:add', { iconClass: 'location-arrow', message: 'Mode "' + modeForMessage + '" sélectionné.' });
+                this.showThrowDice = true;
             },
             onThrowDice() {
-                this.isShowed = false;
-                if(this.count ===0) {
-                    this.hideTemporary();
-                    this.count += 1;
+                this.showThrowDice = false;
+                if(this.rolledDiceCount ===0) {
+                    this.rolledDiceCount += 1;
                     Ajax.get('dice/number').then(({data}) => {
                         this.dice1Value = data.number;
                         Event.$emit('start:dice', { result: this.dice1Value });
+                        this.showThrowDice = true;
                     });
-                } else if(this.count ===1) {
-                    this.count += 1;
+                } else if(this.rolledDiceCount ===1) {
+                    this.rolledDiceCount += 1;
                     Ajax.get('dice/number').then(({data}) => {
                         this.dice2Value = data.number;
                         Event.$emit('start:dice', { result: this.dice2Value });
                         
                         if(this.dice2Value === this.dice1Value) {
-                            this.hideLonger();
                             Event.$emit('message:add', { iconClass: 'paint-brush', message: 'Vous avez fait un double. Les autres joueurs proposent un thème inventé.' });
-                            this.emitFreeSubjectStep()
+                            Event.$emit('message:add', { iconClass: 'spinner', message: 'En attente du sujet.' });
+                            setTimeout(() => this.displaySubjectModal(), 3000);
+
                         } else {
-                            this.hideTemporary();
                             Ajax.get('subject').then(({data})=>{
-                                Event.$emit('parameters:update', { subject: data.subject, step: 'selectSubject' });
+                                Event.$emit('parameters:update', { subject: data.subject });
+                                Event.$emit('message:add', { iconClass: 'comment-dots', colorClass: 'yellow', message: 'Sujet : ' + data.subject });
+                                Event.$emit('message:add', { iconClass: 'paint-brush', message: 'Cliquez sur "Commencer" si vous êtes prêt(e), sinon optez pour un thème inventé par vos amis.' });
+                                this.showStartButton = true;
+                                this.showFreeSubjectButton = true;
                             });
                         }
                     });
                 }       
             },
-            onClickReady() {
-                this.hideTemporary();
+            onClickStart() {
                 Event.$emit('parameters:update', { step: 'playing' });
             },
             onClickFreeSubject() {
-                this.emitFreeSubjectStep();
+                this.showFreeSubjectButton = false;
+                Event.$emit('message:add', { iconClass: 'spinner', message: 'En attente du sujet.' });
+                setTimeout(() => this.displaySubjectModal(), 1500);
             },
-            emitFreeSubjectStep() {
-                this.hideLonger()
-                this.isFreeSubject = true;
-                Event.$emit('parameters:update', { step: 'freeSubject' });
-
+            displaySubjectModal() {
+                this.showSubjectModal = true;
             },
-            hideTemporary() {
-                this.isShowed = false;
-                setTimeout(() => this.isShowed = true, 800);
-            },
-            hideLonger() {
-                this.isShowed = false;
-                setTimeout(() => this.isShowed = true, 3000);
+            onSubmitModal(subject) {
+                this.showSubjectModal = false;
+                Event.$emit('parameters:update', { subject: subject });
+                Event.$emit('message:add', { iconClass: 'comment-dots', colorClass: 'yellow', message: 'Sujet : ' + subject });
+                this.showStartButton = true;
             }
         }
     }
