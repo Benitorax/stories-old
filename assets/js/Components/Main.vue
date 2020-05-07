@@ -28,17 +28,12 @@
         data() {
             return {
                 parameters: {
-                    step: 'rate',
+                    step: 'wait',
                     mode: '',
                     subject: ''
                 },
-                users: [
-                    {id:1, username: 'Hervé', points:0, try:0 },
-                    {id:2, username: 'Bernard', points:0, try:0 }
-                ],
-                user: {
-                    id:1, username: 'Hervé', points:0, try:0 
-                }
+                users: [],
+                user: {}
             }
         },
         computed: {

@@ -34,7 +34,6 @@
             return {
                 rolledDiceCount: 0,
                 dice1Value: null,
-                dice2Value: null,
                 showSelectMode: true,
                 showThrowDice: false,
                 showStartButton: false,
@@ -53,20 +52,15 @@
             },
             onThrowDice() {
                 this.showThrowDice = false;
-                if(this.rolledDiceCount === 0) {
-                    this.rolledDiceCount += 1;
-                    Ajax.get('dice/number').then(({data}) => {
+                Ajax.get('dice/number').then(({data}) => {
+                    if(this.rolledDiceCount === 0) {
                         this.dice1Value = data.number;
-                        this.writeRollDiceMessage('premier', data.number)
+                        this.writeRollDiceMessage('premier', data.number);
                         this.showThrowDice = true;
-                    });
-                } else if(this.rolledDiceCount === 1) {
-                    this.rolledDiceCount += 1;
-                    Ajax.get('dice/number').then(({data}) => {
-                        this.dice2Value = data.number;
-                        this.writeRollDiceMessage('second', data.number)
+                    } else if(this.rolledDiceCount === 1) {
+                        this.writeRollDiceMessage('second', data.number);
                         
-                        if(this.dice2Value === this.dice1Value) {
+                        if(data.number === this.dice1Value) {
                             Event.$emit('message:add', { iconClass: 'paint-brush', message: 'Vous avez fait un double. Les autres joueurs proposent un thème inventé.' });
                             Event.$emit('message:add', { iconClass: 'spinner', message: 'En attente du sujet.' });
                             setTimeout(() => this.displaySubjectModal(), 3000);
@@ -80,8 +74,9 @@
                                 this.showFreeSubjectButton = true;
                             });
                         }
-                    });
-                }       
+                    }
+                    this.rolledDiceCount += 1;
+                });
             },
             writeRollDiceMessage(ordinalNumber, diceNumber) {
                 Event.$emit('message:add', { iconClass: 'dice-'+ DiceConverter.convertNumberToLetter(diceNumber), message: 'Résultat du ' + ordinalNumber + ' dé : ' + diceNumber });

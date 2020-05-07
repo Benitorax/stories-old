@@ -119,7 +119,7 @@
                 }
             }
         },
-        mounted() {
+        created() {
             Event.$on('event:spacebar', () => this.throwBlackDiceEvent());
         },
 
