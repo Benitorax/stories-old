@@ -83,7 +83,7 @@
                 }       
             },
             onClickStart() {
-                Event.$emit('parameters:update', { step: 'playing' });
+                Event.$emit('parameters:update', { step: 'play' });
             },
             onClickFreeSubject() {
                 this.showFreeSubjectButton = false;

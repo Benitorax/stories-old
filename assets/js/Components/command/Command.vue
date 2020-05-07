@@ -12,8 +12,8 @@
         </div>
         <transition name="commands">
             <OptionsCommand v-if="step === 'start'"></OptionsCommand>
-            <GameCommand v-else-if="step === 'playing'" :mode="mode" :step="step"></GameCommand>
-            <RatingCommand v-else-if="step === 'rating'" :user="user" :users="users" :step="step"></RatingCommand>
+            <GameCommand v-else-if="step === 'play'" :mode="mode" :step="step"></GameCommand>
+            <RatingCommand v-else-if="step === 'rate'" :user="user" :users="users" :step="step"></RatingCommand>
         </transition>
     </div>
 </template>

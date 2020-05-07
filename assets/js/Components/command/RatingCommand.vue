@@ -64,7 +64,7 @@
                 setTimeout(() => this.isShowed = true, 500);
             },
             allowSecondDice() {
-                if(this.step !== 'rating') return;
+                if(this.step !== 'rate') return;
                 if(this.count < 2) this.isAllowed = true;
             }
         },

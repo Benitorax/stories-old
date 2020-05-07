@@ -58,7 +58,7 @@ export default {
         restartGame() {
             let users = this.users.map(user => Object.assign(user, {points: '', try: ''}))
             Event.$emit('users:update', { users });
-            Event.$emit('parameters:update', { step: 'waiting' });
+            Event.$emit('parameters:update', { step: 'wait' });
         },
         isFirst(user) {
             let users = this.sortedUsers;

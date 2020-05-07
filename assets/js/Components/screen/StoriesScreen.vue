@@ -1,8 +1,8 @@
 <template>
     <div>
         <StoriesOptions v-if="step === 'start'" :parameters="parameters"></StoriesOptions>
-        <StoriesGame v-else-if="step === 'playing'" :parameters="parameters"></StoriesGame>
-        <StoriesRate v-else-if="step === 'rating'"></StoriesRate>
+        <StoriesGame v-else-if="step === 'play'" :parameters="parameters"></StoriesGame>
+        <StoriesRate v-else-if="step === 'rate'"></StoriesRate>
     </div>
 </template>
 

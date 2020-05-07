@@ -18,7 +18,7 @@
 </template>
 
 <script>
-    /* list of steps: waiting, start, playing, rating, result */
+    /* list of steps: wait, start, play, rate, result */
     import StoriesScreen from './screen/StoriesScreen';
     import Command from './command/Command';
     import Dashboard from './dashboard/Dashboard';
@@ -43,7 +43,7 @@
         },
         computed: {
             showDashboard() {
-                return ['waiting', 'result'].find(element => element == this.parameters.step);
+                return ['wait', 'result'].find(element => element == this.parameters.step);
             }
         },
         mounted() {

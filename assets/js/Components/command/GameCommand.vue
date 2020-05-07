@@ -113,10 +113,10 @@
             },
             onRating() {
                 this.hideDefinitively();
-                Event.$emit('parameters:update', { step: 'rating' });
+                Event.$emit('parameters:update', { step: 'rate' });
             },
             throwBlackDiceEvent() {
-                if(this.step === 'playing' && this.blackDiceCount < 3) {
+                if(this.step === 'play' && this.blackDiceCount < 3) {
                     if(this.diceCount === 0) return;
                     if(this.mode === 'normal' && this.diceCount <= 5) this.throwBlackDice();
                     else if(this.mode === 'whiteDice' && (this.diceCount + this.whiteDiceCount) <= 5) this.throwBlackDice();
