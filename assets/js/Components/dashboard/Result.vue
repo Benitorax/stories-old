@@ -61,17 +61,30 @@ export default {
             Event.$emit('parameters:update', { step: 'wait' });
         },
         isFirst(user) {
+            if(this.hasNoWinnerOrLoser()) return false;
             let users = this.sortedUsers;
             let first = users[0];
             if(user.points == first.points && user.try == first.try) return true;
             else return false;
         },
         isLast(user) {
+            if(this.hasNoWinnerOrLoser()) return false;
             let users = this.sortedUsers;
             let last = users[users.length-1];
             if(user.points == last.points && user.try == last.try) return true;
             else return false;
+        },
+        hasNoWinnerOrLoser() {
+            let winnerCount = 0;
+            let firstUser = this.users[0];
+            this.users.forEach(user => { 
+                if(user.points == firstUser.points && user.try == firstUser.try) winnerCount++ 
+            });
+
+            if(winnerCount == this.users.length) return true;
+            else return false;
         }
+
     }
 }
 </script>

@@ -42,15 +42,14 @@
                         this.firstDigit = digit;
                     } else ordinalNumber = 'second';
                     
-                    Event.$emit('message:add', { message: 'Résultat du ' + ordinalNumber + ' dé : ' + digit,
-                        colorClass: 'yellow', iconClass: 'dice-'+ DiceConverter.convertNumberToLetter(digit)
-                    });
-                    Event.$emit('user:update', { points: this.firstDigit + digit, try: 2 });
+                    Event.$emit('message:add', { message: 'Résultat du ' + ordinalNumber + ' dé : ' + digit, colorClass: 'yellow', iconClass: 'dice-'+ DiceConverter.convertNumberToLetter(digit) });
                     if(this.rolledDiceCount === 0) {
+                        Event.$emit('user:update', { points: digit, try: 1 });
                         Event.$emit('message:add', { iconClass: 'paint-brush', message: this.user.username + ' méritait mieux ? Les autres joueurs peuvent accorder un 2e lancer.' });
                         Event.$emit('message:add', { iconClass: 'paint-brush', message: 'ESPACE pour attribuer un 2e lancer.' });                    
                     } else {
                         Event.$emit('message:add', { message: 'Note finale : ' + (this.firstDigit + digit), colorClass: 'yellow', iconClass: 'paint-brush' });
+                        Event.$emit('user:update', { points: this.firstDigit + digit, try: 2 });
                     }
                     this.rolledDiceCount += 1;
                     this.isAllowedToRollDice = false;
