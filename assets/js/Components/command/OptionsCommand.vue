@@ -1,13 +1,13 @@
 <template>
-    <div class="buttons columns">
+    <div class="buttons columns is-centered">
         <div v-if="showSelectMode" class="column is-full">
             <button class="button is-link is-large is-fullwidth" @click="onSelectMode('normal')">Normal</button>
             <button class="button is-info is-large is-fullwidth has-margin-top-2" @click="onSelectMode('whiteDice')">Avec dé blanc</button>
         </div>
-        <div v-if="showThrowDice" class="column is-full">
+        <div v-else-if="showThrowDice" class="column is-full">
             <button class="button is-primary is-large is-fullwidth" @click="onThrowDice">Lancer<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
         </div>
-        <div v-if="showStartButton" class="column is-full">
+        <div v-else-if="showStartButton" class="column is-full">
             <div>
                 <div class="buttons columns">
                     <div class="column is-full">

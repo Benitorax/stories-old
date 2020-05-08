@@ -72,7 +72,7 @@ export default {
             this.users.push(user);
             Event.$emit('users:update', { users : this.users });
             this.username = '';
-            this.$refs.username.focus()
+            this.$refs.username.focus();
         },
         deletePlayer: function(id) {
             let users = this.users.filter(user => user.id !== id);
@@ -84,6 +84,9 @@ export default {
         startGame: function() {
             Event.$emit('parameters:update', { step: 'start' });
         }
+    },
+    mounted() {
+        this.$refs.username.focus();
     }
 }
 </script>
