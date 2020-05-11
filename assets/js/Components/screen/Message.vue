@@ -26,6 +26,13 @@ export default {
 </script>
 
 <style>
+    .message {
+        margin-bottom: 5px !important;
+    }
+    .message-body {
+        padding-bottom: 10px !important;
+        padding-top: 10px !important;
+    }
     .grey{
         background-color: lightgrey;
     }

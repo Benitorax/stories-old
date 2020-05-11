@@ -70,6 +70,8 @@
             }
         },
         mounted() {
+            Event.$emit('message:reset');
+            Event.$emit('message:add', { message: 'Lancez le dé pour vous noter.', iconClass: 'paint-brush', colorClass: null });
             Event.$on('event:spacebar', () => this.allowSecondDice());
         },
     }

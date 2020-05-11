@@ -1,18 +1,15 @@
 <template>
     <div>
-        <StoriesOptions v-if="step === 'start'" :parameters="parameters"></StoriesOptions>
-        <StoriesGame v-else-if="step === 'play'" :parameters="parameters"></StoriesGame>
-        <StoriesRate v-else-if="step === 'rate'"></StoriesRate>
+        <MessageScreen></MessageScreen>
     </div>
 </template>
 
 <script>
-    import StoriesOptions from './StoriesOptions';
-    import StoriesGame from './StoriesGame';
-    import StoriesRate from './StoriesRate';
+    import MessageScreen from './MessageScreen';
+
 
     export default {
-        components: { StoriesOptions, StoriesGame, StoriesRate},
+        components: { MessageScreen},
         props: ['parameters', 'users'],
         computed: {
             step() {

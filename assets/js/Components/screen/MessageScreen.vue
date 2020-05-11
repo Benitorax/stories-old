@@ -9,27 +9,14 @@
 
     export default {
         components: { Message },
-        props: ['parameters'],
         data() {
             return {
                 messages: [],
             }
         },
-        computed: {
-            step() {
-                return this.parameters.step;
-            },
-            mode() {
-                return this.parameters.mode;
-            },
-            subject() {
-                return this.parameters.subject;
-            }
-        },
         mounted() {
             Event.$on('message:add', (object) => this.addMessage(object.message, object.colorClass, object.iconClass));
-            this.addMessage(this.subject, null, 'comment-dots'
-            );
+            Event.$on('message:reset', () => this.resetMessage());
         },
         methods: {
             addMessage(message, colorClass = '', iconClass) {
@@ -39,6 +26,9 @@
                     iconClass: iconClass
                 });
             },
+            resetMessage() {
+                this.messages = [];
+            }
         }
     };
 </script>

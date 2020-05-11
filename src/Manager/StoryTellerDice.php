@@ -44,7 +44,7 @@ class StoryTellerDice
         "Malheureusement",
         "Bien que",
         "Surtout",
-        "D'ailleurs'"
+        "D'ailleurs"
     ];
 
     const RED_DICE = [

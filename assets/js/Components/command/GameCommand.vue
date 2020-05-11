@@ -37,7 +37,7 @@
     import Ajax from './../Ajax';
 
     export default {
-        props: ['mode', 'step'],
+        props: ['parameters'],
         data() {
             return {
                 diceCount: 0, // whiteDice isn't counted
@@ -47,6 +47,15 @@
             }
         },
         computed: {
+            step() {
+                return this.parameters.step;
+            },
+            mode() {
+                return this.parameters.mode;
+            },
+            subject() {
+                return this.parameters.subject;
+            },
             showWhiteDice() {
                 return this.mode === 'whiteDice' && 
                     this.whiteDiceCount === 0 && 
@@ -138,7 +147,9 @@
                 }
             }
         },
-        created() {
+        mounted() {
+            Event.$emit('message:reset');
+            Event.$emit('message:add', { message: this.subject, iconClass: 'comment-dots', colorClass: null });
             Event.$on('event:spacebar', () => this.throwBlackDiceEvent());
         },
 

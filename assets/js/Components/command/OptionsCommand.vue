@@ -98,6 +98,11 @@
                 Event.$emit('message:add', { iconClass: 'comment-dots', colorClass: 'yellow', message: 'Sujet : ' + subject });
                 this.showStartButton = true;
             }
+        },
+        mounted() {
+            Event.$emit('message:reset');
+            Event.$emit('message:add', { message: 'Bienvenue dans le jeu de dés pour raconter des aventures extraordinaires, drôles et magiques !', iconClass: 'paint-brush', colorClass: null });
+            Event.$emit('message:add', { message: 'Sélectionnez un mode de jeu.', iconClass: 'file', colorClass: null });
         }
     }
 </script>
