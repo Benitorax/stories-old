@@ -21,10 +21,21 @@ class AudienceDice
         "Ça me dégoute",
         "Je te comprends",
         "Certains doutent encore",
-        "Le monde est d'accord",
+        "On est tous d'accord",
         "C'était quel jour ?",
+        "Félicitations pour",
         "Tu nous cache la vérité",
-        "Ton chat il en pense quoi ?"
+        "Ton chat il en pense quoi ?",
+        "Si je comprends bien",
+        "C'était où ?",
+        "Était-ce possible",
+        "Et pourquoi",
+        "Et si",
+        "Ok, admettons",
+        "Comment a réagi ta famille ?",
+        "Peut-être que",
+        "Il faisait froid ?",
+        "Il faisait chaud ?"
     ];
 
     public function getOneSentence() {

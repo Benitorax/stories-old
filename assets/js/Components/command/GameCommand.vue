@@ -79,7 +79,7 @@
                 let color = this.defineColor();
                 this.diceCount += 1;
                 Ajax.get('dice/'+ color).then(({data}) => {
-                    Event.$emit('game:message', { 
+                    Event.$emit('message:add', { 
                         message: data.message, 
                         iconClass: 'cube',
                         colorClass: color
@@ -91,7 +91,7 @@
                 this.isShowed = false;
                 this.whiteDiceCount += 1;
                 Ajax.get('dice/white').then(({data}) => {
-                    Event.$emit('game:message', { 
+                    Event.$emit('message:add', { 
                         message: data.message, 
                         iconClass: 'cube',
                         colorClass: 'white'
@@ -103,7 +103,7 @@
                 this.blackDiceCount += 1;
                 this.isShowed = false;
                 Ajax.get('dice/black').then(({data}) => {
-                    Event.$emit('game:message', { 
+                    Event.$emit('message:add', { 
                         message: data.message, 
                         iconClass: 'cube',
                         colorClass: 'black'

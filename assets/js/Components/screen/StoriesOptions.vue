@@ -13,8 +13,6 @@
         data() {
             return {
                 messages: [],
-                selectedMode: null,
-                isAlreadyFreeSubject: false,
             }
         },
         computed: {
@@ -29,7 +27,6 @@
             }
         },
         mounted() {
-            Event.$on('start:dice', (value) => this.updateDice(value.result));
             Event.$on('message:add', object => this.addMessage(object.message, object.colorClass, object.iconClass));
             this.addMessage('Bienvenue dans le jeu de dés pour raconter des aventures extraordinaires, drôles et magiques !', null, 'paint-brush');
             this.addMessage('Sélectionnez un mode de jeu.', null, 'file');

@@ -19,7 +19,9 @@ class StoryTellerDice
         "Ce matin",
         "La nuit dernière",
         "Quand j'étais bébé",
-        "À ma naissance"
+        "À ma naissance",
+        "Un soir",
+        "La nuit dernière"
     ];
 
     const ORANGE_DICE = [
@@ -37,7 +39,12 @@ class StoryTellerDice
         "Alors moi",
         "Et puis",
         "Pour votre information",
-        "Malgré"
+        "Malgré",
+        "Normalement",
+        "Malheureusement",
+        "Bien que",
+        "Surtout",
+        "D'ailleurs'"
     ];
 
     const RED_DICE = [
@@ -55,7 +62,14 @@ class StoryTellerDice
         "Quand soudain",
         "A mon avis",
         "Entre parenthèses",
-        "À ma connaissance"
+        "À ma connaissance",
+        "En temps normal",
+        "Alors que",
+        "Étant donné",
+        "Vous savez",
+        "Et pourtant",
+        "Sans compter",
+        "Contrairement à"
     ];
 
     const VIOLET_DICE = [
@@ -74,8 +88,11 @@ class StoryTellerDice
         "Il y a aussi",
         "Ce jour-là",
         "Plus sérieusement",
-        "Incroyable",
-        "Étonnamment"
+        "Incroyable mais vrai",
+        "Étonnamment",
+        "Je dois absolument ajouter",
+        "Vous n'allez pas me croire",
+        "À noter que"
     ];
 
     const BLUE_DICE = [
@@ -93,7 +110,10 @@ class StoryTellerDice
         "Quel bonheur",
         "Par mégarde",
         "Je ne m'attendais pas",
-        "Je suis inquiet"
+        "Je suis inquiet",
+        "Heureusement",
+        "Toutefois",
+        "Néanmoins"
     ];
 
     const DARK_BLUE_DICE = [
@@ -112,7 +132,12 @@ class StoryTellerDice
         "Comme dirait mon fils",
         "Comme dirait ma fille",
         "C'est pourquoi",
-        "Comme on dit souvent"
+        "Comme on dit souvent",
+        "Par conséquent",
+        "Bref",
+        "Au fond",
+        "En dernière analyse",
+        "Après réflexion"
     ];
 
     const WHITE_DICE = [
@@ -120,13 +145,29 @@ class StoryTellerDice
         "Et là, Grrr !",
         "Et là, PAF !",
         "Et là, nooon !",
+        "Et là, ouiii !",
         "Et là, Hmmm",
         "Et là, tin, tin, tiin !",
         "Et là, CLAC !",
+        "Et là, CRAC !",
+        "Et là, CLAP !",
         "Et là, CLIC !",
+        "Et là, SPLASH !",
         "Et là, Biiip !",
         "Et là, BOUM !",
-        "Et là, WOOOOW !"
+        "Et là, WOOOOW !",
+        "Et là, MIAOUUU !",
+        "Et là, glou glou !",
+        "Et là, DING-DONG !",
+        "Et là, Meuuuh !",
+        "Et là, WOUAF WOUAF !",
+        "Et là, Bzzz !",
+        "Et là, argh !",
+        "Et là, AIE !",
+        "Et là, OUILLE !",
+        "Et là, CRAC !",
+        "Et là, tic-tac !",
+        "Et là, VROUUUM !",
     ];
 
     public function getOneYellowSentence() {

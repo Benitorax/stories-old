@@ -7,12 +7,11 @@
 <script>
     import Message from './Message';
 
-export default {
+    export default {
         components: { Message },
         data() {
             return {
                 messages: [],
-                count: 0
             }
         },
         mounted() {
@@ -26,7 +25,6 @@ export default {
                     colorClass: colorClass,
                     iconClass: iconClass
                 });
-                this.count +=1;
             }
         }
     };

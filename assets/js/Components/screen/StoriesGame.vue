@@ -27,19 +27,16 @@
             }
         },
         mounted() {
-            Event.$on('game:message', (message) => this.addMessage(message));
-            this.addMessage({
-                message: this.subject, 
-                colorClass: null, 
-                iconClass: 'comment-dots'}
+            Event.$on('message:add', (object) => this.addMessage(object.message, object.colorClass, object.iconClass));
+            this.addMessage(this.subject, null, 'comment-dots'
             );
         },
         methods: {
-            addMessage(message) {
+            addMessage(message, colorClass = '', iconClass) {
                 this.messages.push({
-                    message: message.message,
-                    colorClass: message.colorClass,
-                    iconClass: message.iconClass
+                    message: message,
+                    colorClass: colorClass,
+                    iconClass: iconClass
                 });
             },
         }
