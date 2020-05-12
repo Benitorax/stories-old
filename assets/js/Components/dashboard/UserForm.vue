@@ -59,12 +59,13 @@ export default {
     },
     methods: {
         addPlayer() {
+            if(this.username.trim().length == 0) { this.$refs.username.focus(); return } 
             if(!this.isUniqueUsername()) { this.showErrorMessage = true; return }
             else this.showErrorMessage = false;
 
             let user = {
                 id: this.id(),
-                username: this.username.substr(0,15),
+                username: this.username.trim().substr(0,15),
                 points: '',
                 try: ''
             };
@@ -86,7 +87,7 @@ export default {
         isUniqueUsername() {
             let isUnique = true;
             this.users.forEach(user => {
-                if(user.username.toLowerCase() == this.username.toLowerCase()) isUnique = false;
+                if(user.username.toLowerCase() == this.username.trim().toLowerCase()) isUnique = false;
             });
             return isUnique;
         }

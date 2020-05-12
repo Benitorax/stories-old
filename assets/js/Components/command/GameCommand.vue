@@ -3,7 +3,7 @@
         <div style="height: 300px">
             <div style="margin-bottom: 25px">
                 <transition-group name="dice-icon" tag="span">
-                    <span v-for="(diceClass, index) in diceIcons" :key="index+0" class="has-margin-right-7 dice-icon-item" :class="diceClass"><i class="fas fa-cube fa-3x"></i></span>    
+                    <span v-for="diceClass in diceIcons" :key="diceClass+0" class="has-margin-right-7 dice-icon-item" :class="diceClass"><i class="fas fa-cube fa-3x"></i></span>    
                 </transition-group>
             </div>
             <transition name="commands">
@@ -230,24 +230,20 @@
     }*/
 
     .dice-icon-leave-active {
-        animation: roll-dice 0.6s ease-out;
+        animation: roll-dice 0.5s ease-out;
     }
 
     @keyframes roll-dice {
         from {
             opacity: 1;
         }
-        80% {
-            opacity: 0.5;
-            transform: scale(6) translateX(-90px) rotate(-680deg);
-        }
         90% {
             opacity: 0.2;
-            transform: scale(6) translateX(-90px) rotate(-680deg);
+            transform: scale(3) translateX(-180px) rotate(-680deg);
         }
         to {
             opacity: 0;
-            transform: scale(6) translateX(-90px) rotate(-680deg);
+            transform: scale(3) translateX(-180px) rotate(-680deg);
         }
     }
 </style>
