@@ -230,7 +230,7 @@
     }*/
 
     .dice-icon-leave-active {
-        animation: roll-dice 0.7s ease-in-out;
+        animation: roll-dice 0.6s ease-out;
     }
 
     @keyframes roll-dice {
@@ -239,15 +239,15 @@
         }
         80% {
             opacity: 0.5;
-            transform: scale(6) translateX(-110px) rotate(-680deg);
+            transform: scale(6) translateX(-90px) rotate(-680deg);
         }
         90% {
             opacity: 0.2;
-            transform: scale(6) translateX(-110px) rotate(-680deg);
+            transform: scale(6) translateX(-90px) rotate(-680deg);
         }
         to {
             opacity: 0;
-            transform: scale(6) translateX(-110px) rotate(-680deg);
+            transform: scale(6) translateX(-90px) rotate(-680deg);
         }
     }
 </style>

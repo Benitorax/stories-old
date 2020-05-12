@@ -61,7 +61,7 @@
                         this.writeRollDiceMessage('second', data.number);
                         
                         if(data.number === this.dice1Value) {
-                            Event.$emit('message:add', { iconClass: 'paint-brush', message: 'Vous avez fait un double. Les autres joueurs proposent un thème inventé.' });
+                            Event.$emit('message:add', { iconClass: 'paint-brush', colorClass: 'light-blue', message: 'Vous avez fait un double. Les autres joueurs proposent un thème inventé.' });
                             Event.$emit('message:add', { iconClass: 'spinner', message: 'En attente du sujet.' });
                             setTimeout(() => this.displaySubjectModal(), 3000);
 

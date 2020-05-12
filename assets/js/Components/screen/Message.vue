@@ -33,44 +33,49 @@ export default {
         padding-bottom: 10px !important;
         padding-top: 10px !important;
     }
-    .grey{
+
+    .grey {
         background-color: lightgrey;
     }
 
-    .green{
+    .green {
         background-color: lightgreen;
     }
 
-    .yellow{
+    .yellow {
         background-color: lightyellow;
     }
 
-    .orange{
+    .orange {
         background-color: lightsalmon;
     }
 
-    .red{
+    .red {
         background-color: lightcoral;
     }
 
-    .violet{
+    .violet {
         background-color: violet;
     }
 
-    .blue{
+    .blue {
         background-color: lightskyblue;
     }
 
-    .dark-blue{
+    .dark-blue {
         background-color: blue;
         color: white;
     }
 
-    .white{
+    .light-blue {
+        background-color: #e2f5ff;
+    }
+
+    .white {
         background-color: white;
     }
 
-    .black{
+    .black {
         background-color: black;
         color: white;
     }
