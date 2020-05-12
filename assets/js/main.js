@@ -1,5 +1,4 @@
 require('../css/app.scss');
-var debounce = require('lodash.debounce');
 import Main from './components/Main';
 
 window.Event = new Vue();
@@ -16,4 +15,4 @@ function throwBlackDiceEvent(e) {
     }
 }
 
-document.body.addEventListener("keyup", debounce((e) => throwBlackDiceEvent(e), 3000, {leading: true, trailing: false}));
+document.body.addEventListener("keyup", _.debounce((e) => throwBlackDiceEvent(e), 1500, {leading: true, trailing: false}));

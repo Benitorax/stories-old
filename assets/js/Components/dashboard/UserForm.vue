@@ -37,6 +37,7 @@
                                 <button :disabled="username.length < 1" class="button is-info is-large">Ajouter</button>
                             </div>
                         </div>
+                        <p v-if="showErrorMessage" class="help is-danger subtitle is-4">Ce nom est déjà utilisé</p>
                     </form>
                     <div class="has-margin-top-1">
                         <button :disabled="users.length < 2" v-on:click="startGame" class="button is-success is-large is-fullwidth">Démarrer</button>
@@ -52,11 +53,15 @@ export default {
     props: ['users', 'step'],
     data() {
         return {
-            username: ''
+            username: '',
+            showErrorMessage: false
         };
     },
     methods: {
-        addPlayer: function() {
+        addPlayer() {
+            if(!this.isUniqueUsername()) { this.showErrorMessage = true; return }
+            else this.showErrorMessage = false;
+
             let user = {
                 id: this.id(),
                 username: this.username.substr(0,15),
@@ -68,15 +73,22 @@ export default {
             this.username = '';
             this.$refs.username.focus();
         },
-        deletePlayer: function(id) {
+        deletePlayer(id) {
             let users = this.users.filter(user => user.id !== id);
             Event.$emit('users:update', { users });
         },
-        id: function() {
+        id() {
             return '_' + Math.random().toString(36).substr(2, 9);
         },
-        startGame: function() {
+        startGame() {
             Event.$emit('parameters:update', { step: 'start' });
+        },
+        isUniqueUsername() {
+            let isUnique = true;
+            this.users.forEach(user => {
+                if(user.username.toLowerCase() == this.username.toLowerCase()) isUnique = false;
+            });
+            return isUnique;
         }
     },
     mounted() {

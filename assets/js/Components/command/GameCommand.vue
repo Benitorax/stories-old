@@ -3,29 +3,27 @@
         <div style="height: 300px">
             <div style="margin-bottom: 25px">
                 <transition-group name="dice-icon" tag="span">
-                    <span v-for="diceClass in diceIcons" :key="diceClass" class="has-margin-right-7 dice-icon-item" :class="diceClass"><i class="fas fa-cube fa-3x"></i></span>    
+                    <span v-for="(diceClass, index) in diceIcons" :key="index+0" class="has-margin-right-7 dice-icon-item" :class="diceClass"><i class="fas fa-cube fa-3x"></i></span>    
                 </transition-group>
             </div>
             <transition name="commands">
                 <div v-if="isShowed" class="buttons columns">
-                    <div v-if="isThrowDiceShowed" class="column is-full">
+                    <div v-if="showThrowDiceButton" class="column is-full">
                         <button class="button is-primary is-large is-fullwidth" @click="throwDice">Lancer<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
                     </div>
                     <div v-if="diceLeft === 0" class="column is-full">
-                        <button class="button is-link is-large is-fullwidth" @click="onRating">Notez vous-même !</button>
+                        <button class="button is-link is-large is-fullwidth" @click="showRatingButton">Notez vous-même !</button>
                     </div>
-                    <div v-if="showWhiteDice" class="column is-full">
+                    <div v-if="showWhiteDiceButton" class="column is-full">
                         <button class="button is-outlined is-large is-fullwidth" @click="throwWhiteDice">Lancer dé blanc<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
                     </div>
-                </div>
-                <div>
                 </div>
             </transition>
         </div>
         <div>
             <div style="margin-bottom: 25px">
                 <transition-group name="dice-icon" tag="span">
-                    <span v-for="diceClass in blackDiceIcons" :key="diceClass" class="has-margin-right-7 dice-icon-item" :class="diceClass"><i class="fas fa-cube fa-3x"></i></span>    
+                    <span v-for="(diceClass, index) in blackDiceIcons" :key="index+0" class="has-margin-right-7 dice-icon-item" :class="diceClass"><i class="fas fa-cube fa-3x"></i></span>    
                 </transition-group>
             </div>
             <div v-if="isShowed" class="columns">
@@ -49,7 +47,8 @@
                 whiteDiceCount: 0,
                 isShowed: true,
                 diceIcons: null,
-                blackDiceIcons: ['icon-black', 'icon-black', 'icon-black']
+                blackDiceIcons: ['icon-black', 'icon-black', 'icon-black'],
+                debounceFunction: null
             }
         },
         computed: {
@@ -62,13 +61,13 @@
             subject() {
                 return this.parameters.subject;
             },
-            showWhiteDice() {
+            showWhiteDiceButton() {
                 return this.mode === 'whiteDice' && 
                     this.whiteDiceCount === 0 && 
                     this.diceCount < 5 &&
                     this.diceCount > 0;
             },
-            isThrowDiceShowed() {
+            showThrowDiceButton() {
                 return ((this.mode === 'normal') && (this.diceCount < 6)) ||
                     (this.mode === 'whiteDice' && (
                             (this.whiteDiceCount === 1 && this.diceCount < 5) ||
@@ -81,7 +80,7 @@
         },
         methods: {
             throwDice() {
-                this.isShowed = false;
+                this.hideButtons();
                 let color = this.defineColor();
                 this.diceCount += 1;
                 this.removeOneDiceIcon();
@@ -91,11 +90,11 @@
                         iconClass: 'cube',
                         colorClass: color
                     });
-                    this.isShowed = true;
+                    this.showButtons();
                 });
             },
             throwWhiteDice() {
-                this.isShowed = false;
+                this.hideButtons();
                 this.whiteDiceCount += 1;
                 this.removeWhiteDiceIcon();
                 Ajax.get('dice/white').then(({data}) => {
@@ -104,19 +103,19 @@
                         iconClass: 'cube',
                         colorClass: 'white'
                     });
-                    this.isShowed = true;
+                    this.showButtons();
                 });
             },
             throwBlackDice() {
                 this.blackDiceCount += 1;
-                this.isShowed = false;
+                this.hideButtons();
                 Ajax.get('dice/black').then(({data}) => {
                     Event.$emit('message:add', { 
                         message: data.message, 
                         iconClass: 'cube',
                         colorClass: 'black'
                     });
-                    this.isShowed = true;
+                    this.showButtons();
                 });
             },
             defineColor() {
@@ -134,17 +133,25 @@
                     return 'dark-blue';
                 }
             },
-            onRating() {
+            showRatingButton() {
                 this.isShowed = false;
                 Event.$emit('parameters:update', { step: 'rate' });
             },
             throwBlackDiceEvent() {
-                if(this.step === 'play' && this.blackDiceCount < 3 && this.diceCount > 0) {
+                if(this.blackDiceCount < 3 && this.diceCount > 0 && this.showThrowDiceButton ) {
                     this.removeBlackDiceIcon();
-                    if(this.diceCount === 0) return;
-                    if(this.mode === 'normal' && this.diceCount <= 5) this.throwBlackDice();
-                    else if(this.mode === 'whiteDice' && (this.diceCount + this.whiteDiceCount) <= 5) this.throwBlackDice();
+                    this.throwBlackDice();
                 }
+            },
+            hideButtons() {
+                this.isShowed = false;
+                Event.$off('event:spacebar');
+            },
+            showButtons() {
+                setTimeout(() => {
+                    this.isShowed = true
+                    Event.$on('event:spacebar', () => this.throwBlackDiceEvent());
+                }, 3000);
             },
             removeOneDiceIcon() {
                 this.diceIcons.splice(-1,1);
@@ -165,10 +172,11 @@
         mounted() {
             Event.$emit('message:reset');
             Event.$emit('message:add', { message: this.subject, iconClass: 'comment-dots', colorClass: null });
-            Event.$on('event:spacebar', () => this.throwBlackDiceEvent());
             this.hydrateDiceIcons();
         },
-
+        beforeDestroy() {
+            Event.$off('event:spacebar');
+        }
     };
 </script>
 
@@ -222,7 +230,7 @@
     }*/
 
     .dice-icon-leave-active {
-        animation: roll-dice 1s ease-in-out;
+        animation: roll-dice 0.7s ease-in-out;
     }
 
     @keyframes roll-dice {
