@@ -7,7 +7,7 @@
             <button v-if="isNoUsersRemaining" class="button is-danger is-large is-fullwidth" @click="onResultStep">Voir classement</button>
             <button v-else class="button is-danger is-large is-fullwidth" @click="onStartStep">Joueur suivant</button>
         </div>
-        <div v-if="showAllowSecondDiceButton" key="3" class="column is-full is-hidden-tablet">
+        <div v-if="showAllowSecondDiceButton" key="3" class="column is-full is-hidden-tablet has-margin-top-1">
             <button class="button is-info is-large is-fullwidth" @click="allowSecondDice">Attribuer 2e lancer</button>
         </div>
     </transition-group>
