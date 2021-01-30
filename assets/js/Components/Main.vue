@@ -1,13 +1,7 @@
 <template>
-    <div style="margin-top: 25px" class="container">
-        <div v-if="showDashboard" class="columns">
-            <div class="column">
-                <Dashboard :step="parameters.step" :users="users"></Dashboard> 
-            </div>
-        </div>
-
-        <div v-else class="columns">
-            <div class="column is-8 screen has-background-grey-light">
+    <div style="margin-top: 25px" class="container is-fluid">
+        <div class="columns">
+            <div class="column is-8">
                 <StoriesScreen :users="users" :parameters="parameters"></StoriesScreen>
             </div>
             <div class="column command">
@@ -21,10 +15,9 @@
     /* list of steps: wait, start, play, rate, result */
     import StoriesScreen from './screen/StoriesScreen';
     import Command from './command/Command';
-    import Dashboard from './dashboard/Dashboard';
 
     export default {
-        components: { StoriesScreen, Command, Dashboard },
+        components: { StoriesScreen, Command },
         data() {
             return {
                 parameters: {
@@ -44,6 +37,8 @@
         mounted() {
             Event.$on('parameters:update', (object) => this.updateParameters(object));
             Event.$on('users:update', (object) => this.updateUsers(object))
+            Event.$on('users:add', (object) => this.addUsers(object))
+            Event.$on('users:remove', (object) => this.removeUsers(object))
             Event.$on('user:update', (object) => this.updateUser(object))
         },
         methods: {
@@ -51,6 +46,8 @@
                 if(object.step =='start') {
                     let users = this.users.filter(user => user.points == '');
                     this.user = users[Math.floor(Math.random() * users.length)];
+                } else if(object.step =='result') {
+                    this.user = {};
                 }
                 this.parameters = Object.assign({}, this.parameters, object);
             },
@@ -64,19 +61,16 @@
                     return user;
                 });
                 this.updateUsers({users: users});
+            },
+            addUsers(data) {
+                this.users.push(data.user);
+            },
+            removeUsers(data) {
+                this.users = this.users.filter(user => user.id !== data.user.id);
             }
         }
     };
 </script>
 
 <style>
-    .screen {
-        border: solid 2px black;
-        min-height: 90vh;
-    }
-    .command {
-        border: solid 2px grey;
-        min-height: 90vh;
-        width: 500px !important;
-    }
 </style>

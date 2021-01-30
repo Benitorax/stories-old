@@ -1,41 +1,29 @@
 <template>
-    <div class="columns">
-        <div class="column is-8 screen has-background-grey-light">
-            <table class="table is-hoverable is-striped is-fullwidth subtitle is-4">
-                <thead>
-                    <tr>
-                        <th colspan="4" class="title is-3">Classement</th>
-                    </tr>
-                    <tr>
-                        <th>#</th>
-                        <th>Joueur</th>
-                        <th>Points</th>
-                        <th>Tentative</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr :class="{ first: isFirst(user), last: isLast(user) }" v-for="(user, index) in sortedUsers" :key="user.id">
-                        <td>{{ index + 1 }}</td>
-                        <td>
-                            <i v-if="isFirst(user)" class="fas fa-trophy has-text-trophy"></i>
-                            <i v-if="isLast(user)" class="fas fa-poo has-text-poo"></i>
-                            <b>{{ user.username }}</b>
-                        </td>
-                        <td><b>{{ user.points }}</b></td>
-                        <td><b>{{ user.try }}</b></td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
-        <div class="column command">
-            <div class="columns">
-                <div class="column has-margin-top-1">
-                    <button v-on:click="restartGame" class="button is-info is-large is-fullwidth">Rejouer</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <table class="table is-hoverable is-striped is-fullwidth subtitle is-4">
+        <thead>
+            <tr>
+                <th colspan="4" class="title is-3">Classement</th>
+            </tr>
+            <tr>
+                <th>#</th>
+                <th>Joueur</th>
+                <th>Points</th>
+                <th>Tentative</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr :class="{ first: isFirst(user), last: isLast(user) }" v-for="(user, index) in sortedUsers" :key="user.id">
+                <td>{{ index + 1 }}</td>
+                <td>
+                    <i v-if="isFirst(user)" class="fas fa-trophy has-text-trophy"></i>
+                    <i v-if="isLast(user)" class="fas fa-poo has-text-poo"></i>
+                    <b>{{ user.username }}</b>
+                </td>
+                <td><b>{{ user.points }}</b></td>
+                <td><b>{{ user.try }}</b></td>
+            </tr>
+        </tbody>
+    </table>
 </template>
 
 <script>
@@ -97,15 +85,6 @@ export default {
 .last {
     background-color: rgb(202, 32, 32) !important;
     color: white !important;
-}
-.screen {
-    border: solid 2px black;
-    min-height: 90vh;
-}
-.command {
-    border: solid 2px grey;
-    min-height: 90vh;
-    width: 500px !important;
 }
 .has-text-poo {
     color: #DA9F02;

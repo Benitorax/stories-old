@@ -2,7 +2,10 @@
     <div>
         <article class="message">
             <div class="message-body" :class="color">
-                <i style="font-size: 25px;" :class="iconClass"></i><span style="margin-left:40px" class="is-size-4 bold">{{messageText}}</span>
+                <span  style="margin-right:40px" class="is-hidden-mobile">
+                    <i style="font-size: 25px;" :class="iconClass"></i>
+                </span>
+                <span class="is-size-4 bold">{{messageText}}</span>
             </div>
         </article>
     </div>

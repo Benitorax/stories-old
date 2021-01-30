@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="card has-margin-bottom-5">
-            <div class="card-content">
+        <div v-if="isPlayerSelected" class="card">
+            <div class="card-content is-hidden-mobile">
                 <div class="media">
                     <div class="media-left has-text-link"><i class="fas fa-user fa-3x"></i></div>
                     <div class="media-content">
@@ -9,11 +9,23 @@
                     </div>
                 </div>
             </div>
+            <div style="padding: 10px" class="is-hidden-tablet">
+                <div class="media">
+                    <div class="media-left has-text-link"><i class="fas fa-user fa-2x"></i></div>
+                    <div class="media-content">
+                        <div class="title is-6"> {{ user.username }}</div>    
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="has-margin-bottom-5 is-hidden-mobile"></div>
+        <div style="min-height: 5px" class="is-hidden-tablet"></div>
         <transition name="commands">
-            <OptionsCommand v-if="step === 'start'"></OptionsCommand>
+            <UserForm v-if="step === 'wait'" :users="users"></UserForm>
+            <OptionsCommand v-else-if="step === 'start'"></OptionsCommand>
             <GameCommand v-else-if="step === 'play'" :parameters="parameters"></GameCommand>
             <RatingCommand v-else-if="step === 'rate'" :user="user" :users="users" :step="step"></RatingCommand>
+            <ResultCommand v-else-if="step === 'result'" :users="users"></ResultCommand>
         </transition>
     </div>
 </template>
@@ -22,12 +34,16 @@
     import GameCommand from './GameCommand';
     import OptionsCommand from './OptionsCommand';
     import RatingCommand from './RatingCommand';
+    import UserForm from './UserForm';
+    import ResultCommand from './ResultCommand';
 
     export default {
         components: { 
             GameCommand,
             OptionsCommand,
-            RatingCommand
+            RatingCommand,
+            UserForm,
+            ResultCommand
         },
         props: ['parameters', 'user', 'users'],
         computed: {
@@ -39,6 +55,9 @@
             },
             subject() {
                 return this.parameters.subject;
+            },
+            isPlayerSelected() {
+                return !['wait', 'result'].includes(this.parameters.step);
             }
         }
     };

@@ -11,7 +11,8 @@
                 <textarea v-model="subject" id="textarea-field" rows="2" maxlength="125" @keyup.ctrl.enter="onSubmit" class="textarea is-medium app-input" type="text" autofocus/>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-success is-large">CTRL + ENTREE pour valider</button>
+                <button class="button is-success is-large is-hidden-mobile">CTRL + ENTREE pour valider</button>
+                <button class="button is-success is-large is-hidden-tablet" @click="onSubmit">VALIDER</button>
             </footer>
         </div>
     </div>

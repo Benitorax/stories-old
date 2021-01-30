@@ -1,13 +1,8 @@
 <template>
     <div>
-        <div style="height: 300px">
-            <div style="margin-bottom: 25px">
-                <transition-group name="dice-icon" tag="span">
-                    <span v-for="diceClass in diceIcons" :key="diceClass+0" class="has-margin-right-7 dice-icon-item" :class="diceClass"><i class="fas fa-cube fa-3x"></i></span>    
-                </transition-group>
-            </div>
+        <div>
             <transition name="commands">
-                <div v-if="isShowed" class="buttons columns">
+                <div class="columns" :style="styleObject">
                     <div v-if="showThrowDiceButton" class="column is-full">
                         <button class="button is-primary is-large is-fullwidth" @click="throwDice">Lancer<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
                     </div>
@@ -19,17 +14,27 @@
                     </div>
                 </div>
             </transition>
+            <div class="has-margin-bottom-6 is-hidden-mobile"></div>
+            <div>
+                <transition-group name="dice-icon" tag="span">
+                    <span v-for="diceClass in diceIcons" :key="diceClass+0" class="has-margin-right-7 dice-icon-item" :class="diceClass"><i class="fas fa-cube fa-3x"></i></span>    
+                </transition-group>
+            </div>
         </div>
+        <div style="height: 50px"></div>
+        <div class="has-margin-bottom-1 is-hidden-mobile"></div>
         <div>
-            <div style="margin-bottom: 25px">
+            <div class="columns" :style="styleObject">
+                <div v-if="blackDiceCount < 3 && diceLeft > 0 && diceCount > 0" class="column is-full button-audience">
+                    <button class="button is-black is-large is-fullwidth is-hidden-mobile">ESPACE pour lancer<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
+                    <button class="button is-black is-large is-fullwidth is-hidden-tablet" @click="throwBlackDiceEvent">Lancer<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
+                </div>
+            </div>
+            <div class="has-margin-bottom-6 is-hidden-mobile"></div>
+            <div>
                 <transition-group name="dice-icon" tag="span">
                     <span v-for="(diceClass, index) in blackDiceIcons" :key="index+0" class="has-margin-right-7 dice-icon-item" :class="diceClass"><i class="fas fa-cube fa-3x"></i></span>    
                 </transition-group>
-            </div>
-            <div v-if="isShowed" class="columns">
-                <div v-if="blackDiceCount < 3 && diceLeft > 0 && diceCount > 0" class="column is-full button-audience">
-                    <button class="button is-black is-large is-fullwidth">ESPACE pour lancer<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
-                </div>
             </div>
         </div>
     </div>
@@ -76,6 +81,12 @@
             },
             diceLeft() {
                 return 6 - (this.diceCount + this.whiteDiceCount);
+            },
+            styleObject() {
+                return {
+                    visibility: this.isShowed ? 'visible' : 'hidden',
+                    marginBottom: '0px'
+                }
             }
         },
         methods: {
