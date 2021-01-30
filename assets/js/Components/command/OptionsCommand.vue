@@ -14,7 +14,7 @@
                         <button class="button is is-danger is-large is-fullwidth" @click="onClickStart">Commencer</button>
                     </div>
                     <div v-if="showFreeSubjectButton" class="column is-full">
-                        <button class="button is-primary is-light is-large is-fullwidth" @click="onClickFreeSubject">Thème libre</button>
+                        <button class="button is-link is-large is-fullwidth" @click="onClickFreeSubject">Sujet libre</button>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                         this.writeRollDiceMessage('second', data.number);
                         
                         if(data.number === this.dice1Value) {
-                            Event.$emit('message:add', { iconClass: 'paint-brush', colorClass: 'light-blue', message: 'Vous avez fait un double. Les autres joueurs proposent un thème inventé.' });
+                            Event.$emit('message:add', { iconClass: 'paint-brush', colorClass: 'light-blue', message: 'Vous avez fait un double. Les autres joueurs proposent un sujet inventé.' });
                             Event.$emit('message:add', { iconClass: 'spinner', message: 'En attente du sujet.' });
                             setTimeout(() => this.displaySubjectModal(), 3000);
 
@@ -69,7 +69,7 @@
                             Ajax.get('subject').then(({data})=>{
                                 Event.$emit('parameters:update', { subject: data.subject });
                                 Event.$emit('message:add', { iconClass: 'comment-dots', colorClass: 'yellow', message: 'Sujet : ' + data.subject });
-                                Event.$emit('message:add', { iconClass: 'paint-brush', message: 'Cliquez sur "Commencer" si vous êtes prêt(e), sinon optez pour un thème inventé par vos amis.' });
+                                Event.$emit('message:add', { iconClass: 'paint-brush', message: 'Cliquez sur "Commencer" si vous êtes prêt(e), sinon optez pour un sujet inventé par vos amis.' });
                                 this.showStartButton = true;
                                 this.showFreeSubjectButton = true;
                             });

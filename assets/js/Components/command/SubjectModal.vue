@@ -9,10 +9,11 @@
             </header>
             <section class="modal-card-body">
                 <textarea v-model="subject" id="textarea-field" rows="2" maxlength="125" @keyup.ctrl.enter="onSubmit" class="textarea is-medium app-input" type="text" autofocus/>
+                <p v-if="showErrorMessage" class="help is-danger subtitle is-4">Vous devez saisir le nouveau sujet</p>
             </section>
-            <footer class="modal-card-foot">
+            <footer class="modal-card-foot columns is-centered">
                 <button class="button is-success is-large is-hidden-mobile">CTRL + ENTREE pour valider</button>
-                <button class="button is-success is-large is-hidden-tablet" @click="onSubmit">VALIDER</button>
+                <button class="button is-success is-large is-hidden-tablet" @click="onSubmit">Valider</button>
             </footer>
         </div>
     </div>
@@ -22,11 +23,19 @@
     export default {
         data() {
             return {
-                subject: ''
+                subject: '',
+                showErrorMessage: false
             }
         },
         methods: {
             onSubmit() {
+                if(this.subject.trim().length == 0) { 
+                    document.getElementById('textarea-field').focus(); 
+                    this.showErrorMessage = true;
+                    return; 
+                }
+
+                this.showErrorMessage = false;
                 this.$emit('onSubmit', this.subject.trim());
             },
             focusOnInput() {

@@ -3,7 +3,7 @@
         <div v-if="isAllowedToRollDice" key="1" class="column is-full">
             <button class="button is-primary is-large is-fullwidth" @click="onThrowDice">Lancer<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
         </div>
-        <div v-if="rolledDiceCount > 0" key="2" class="column is-full">
+        <div v-else key="2" class="column is-full">
             <button v-if="isNoUsersRemaining" class="button is-danger is-large is-fullwidth" @click="onResultStep">Voir classement</button>
             <button v-else class="button is-danger is-large is-fullwidth" @click="onStartStep">Joueur suivant</button>
         </div>
@@ -46,7 +46,6 @@
                         this.firstDigit = digit;
                     } else {
                         ordinalNumber = 'second';
-                        this.showAllowSecondDiceButton = false;
                     }
 
                     Event.$emit('message:add', { message: 'Résultat du ' + ordinalNumber + ' dé : ' + digit, colorClass: 'yellow', iconClass: 'dice-'+ DiceConverter.convertNumberToLetter(digit) });
@@ -74,6 +73,7 @@
             },
             allowSecondDice() {
                 if(this.step !== 'rate') return;
+                this.showAllowSecondDiceButton = false;
                 if(this.rolledDiceCount < 2) this.isAllowedToRollDice = true;
             }
         },
