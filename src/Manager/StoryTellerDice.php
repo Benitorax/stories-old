@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Manager;
 
 class StoryTellerDice
 {
-    const YELLOW_DICE = [
+    public const YELLOW_DICE = [
         "Je dois vous avouer",
         "Vous n'allez pas me croire",
         "L'autre jour",
@@ -23,8 +24,7 @@ class StoryTellerDice
         "Un soir",
         "La nuit dernière"
     ];
-
-    const ORANGE_DICE = [
+    public const ORANGE_DICE = [
         "Donc",
         "C'est pourquoi",
         "Mais",
@@ -46,8 +46,7 @@ class StoryTellerDice
         "Surtout",
         "D'ailleurs"
     ];
-
-    const RED_DICE = [
+    public const RED_DICE = [
         "Vous allez me dire",
         "Bon, vous me connaissez",
         "Tout à coup",
@@ -71,8 +70,7 @@ class StoryTellerDice
         "Sans compter",
         "Contrairement à"
     ];
-
-    const VIOLET_DICE = [
+    public const VIOLET_DICE = [
         "D'un autre côté",
         "Là ça se complique",
         "Et là, surprise",
@@ -94,8 +92,7 @@ class StoryTellerDice
         "Vous n'allez pas me croire",
         "À noter que"
     ];
-
-    const BLUE_DICE = [
+    public const BLUE_DICE = [
         "Et là, patatras !",
         "J'avais prévu le coup",
         "Bref !",
@@ -115,8 +112,7 @@ class StoryTellerDice
         "Toutefois",
         "Néanmoins"
     ];
-
-    const DARK_BLUE_DICE = [
+    public const DARK_BLUE_DICE = [
         "Et le drame",
         "C'est comme ça que",
         "Alors, vous allez rire",
@@ -139,8 +135,7 @@ class StoryTellerDice
         "En dernière analyse",
         "Après réflexion"
     ];
-
-    const WHITE_DICE = [
+    public const WHITE_DICE = [
         "Et là, COUIC !",
         "Et là, Grrr !",
         "Et là, PAF !",
@@ -170,43 +165,50 @@ class StoryTellerDice
         "Et là, VROUUUM !",
     ];
 
-    public function getOneYellowSentence() {
+    public function getOneYellowSentence()
+    {
         return self::YELLOW_DICE[
             array_rand(self::YELLOW_DICE, 1)
         ];
     }
 
-    public function getOneOrangeSentence() {
+    public function getOneOrangeSentence()
+    {
         return self::ORANGE_DICE[
             array_rand(self::ORANGE_DICE, 1)
         ];
     }
 
-    public function getOneRedSentence() {
+    public function getOneRedSentence()
+    {
         return self::RED_DICE[
             array_rand(self::RED_DICE, 1)
         ];
     }
 
-    public function getOneVioletSentence() {
+    public function getOneVioletSentence()
+    {
         return self::VIOLET_DICE[
             array_rand(self::VIOLET_DICE, 1)
         ];
     }
 
-    public function getOneBlueSentence() {
+    public function getOneBlueSentence()
+    {
         return self::BLUE_DICE[
             array_rand(self::BLUE_DICE, 1)
         ];
     }
 
-    public function getOneDarkBlueSentence() {
+    public function getOneDarkBlueSentence()
+    {
         return self::DARK_BLUE_DICE[
             array_rand(self::DARK_BLUE_DICE, 1)
         ];
     }
 
-    public function getOneWhiteSentence() {
+    public function getOneWhiteSentence()
+    {
         return self::WHITE_DICE[
             array_rand(self::WHITE_DICE, 1)
         ];

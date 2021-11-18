@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Manager;
 
 class AudienceDice
 {
-    const BLACK_DICE = [
+    public const BLACK_DICE = [
         "Ça c'est faux",
         "Moi ça me rappelle",
         "Avec du beurre ?",
@@ -15,7 +16,7 @@ class AudienceDice
         "Et ton chien dans tout ça ?",
         "T'as pas eu trop peur ?",
         "Tu veux mon avis ?",
-        "J'adore ce passage !", 
+        "J'adore ce passage !",
         "Ah bon ? Pourquoi ?",
         "Tu peux le prouver ?",
         "Ça me dégoute",
@@ -38,7 +39,8 @@ class AudienceDice
         "Il faisait chaud ?"
     ];
 
-    public function getOneSentence() {
+    public function getOneSentence()
+    {
         return self::BLACK_DICE[
             array_rand(self::BLACK_DICE, 1)
         ];

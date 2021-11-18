@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Manager;
 
 class SubjectData
 {
-    const SUBJECTS = [
+    public const SUBJECTS = [
         "J’ai été enlevé(e) par des extra-terrestres.",
         "Je lis l'avenir dans la purée de pommes de terres.",
         "Je vous raconte mon prochain film.",
@@ -172,7 +173,8 @@ class SubjectData
         "Il pleut à chaque fois que je sors."
     ];
 
-    public function getOneSubject() {
+    public function getOneSubject()
+    {
         return self::SUBJECTS[
             array_rand(self::SUBJECTS, 1)
         ];
