@@ -9,6 +9,7 @@
         <title>{% block title %}Stories{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.2/css/bulma.min.css"></link>
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
         {% block javascripts %}
             {# <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js"></script> #}
@@ -17,6 +18,7 @@
             <script defer src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/3.3.0/vee-validate.min.js"></script>
             <script defer src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
             <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+            {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
     <body>

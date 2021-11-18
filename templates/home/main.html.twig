@@ -3,18 +3,7 @@
 {% block title %}Stories{% endblock %}
 
 {% block body %}
-    <div id="app">
+    <div {{ stimulus_controller('stories-game') }} id="app">
         <app></app>
     </div>
-{% endblock %}
-
-
-{% block javascripts %}
-    {{ parent() }}
-    {{ encore_entry_script_tags('main') }}
-{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    {{ encore_entry_link_tags('main') }}
 {% endblock %}
