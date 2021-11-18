@@ -39,7 +39,7 @@ class AudienceDice
         "Il faisait chaud ?"
     ];
 
-    public function getOneSentence()
+    public function getOneSentence(): string
     {
         return self::BLACK_DICE[
             array_rand(self::BLACK_DICE, 1)

@@ -165,49 +165,49 @@ class StoryTellerDice
         "Et là, VROUUUM !",
     ];
 
-    public function getOneYellowSentence()
+    public function getOneYellowSentence(): string
     {
         return self::YELLOW_DICE[
             array_rand(self::YELLOW_DICE, 1)
         ];
     }
 
-    public function getOneOrangeSentence()
+    public function getOneOrangeSentence(): string
     {
         return self::ORANGE_DICE[
             array_rand(self::ORANGE_DICE, 1)
         ];
     }
 
-    public function getOneRedSentence()
+    public function getOneRedSentence(): string
     {
         return self::RED_DICE[
             array_rand(self::RED_DICE, 1)
         ];
     }
 
-    public function getOneVioletSentence()
+    public function getOneVioletSentence(): string
     {
         return self::VIOLET_DICE[
             array_rand(self::VIOLET_DICE, 1)
         ];
     }
 
-    public function getOneBlueSentence()
+    public function getOneBlueSentence(): string
     {
         return self::BLUE_DICE[
             array_rand(self::BLUE_DICE, 1)
         ];
     }
 
-    public function getOneDarkBlueSentence()
+    public function getOneDarkBlueSentence(): string
     {
         return self::DARK_BLUE_DICE[
             array_rand(self::DARK_BLUE_DICE, 1)
         ];
     }
 
-    public function getOneWhiteSentence()
+    public function getOneWhiteSentence(): string
     {
         return self::WHITE_DICE[
             array_rand(self::WHITE_DICE, 1)

@@ -173,7 +173,7 @@ class SubjectData
         "Il pleut à chaque fois que je sors."
     ];
 
-    public function getOneSubject()
+    public function getOneSubject(): string
     {
         return self::SUBJECTS[
             array_rand(self::SUBJECTS, 1)
