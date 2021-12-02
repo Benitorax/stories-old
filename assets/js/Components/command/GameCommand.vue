@@ -5,12 +5,11 @@
                 <div class="columns" :style="styleObject">
                     <div v-if="showThrowDiceButton" class="column is-full">
                         <button class="button is-primary is-large is-fullwidth" @click="throwDice">Lancer<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
-                    </div>
+                        <div v-if="showWhiteDiceButton" style="margin-top: 0.75rem">
+                            <button class="button is-outlined is-large is-fullwidth" @click="throwWhiteDice">Lancer dé blanc<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
+                        </div>                    </div>
                     <div v-if="diceLeft === 0" class="column is-full">
                         <button class="button is-link is-large is-fullwidth" @click="showRatingButton">Notez vous-même !</button>
-                    </div>
-                    <div v-if="showWhiteDiceButton" class="column is-full">
-                        <button class="button is-outlined is-large is-fullwidth" @click="throwWhiteDice">Lancer dé blanc<i style="font-size: 25px;margin-left: 10px" class="fas fa-cube"></i></button>
                     </div>
                 </div>
             </transition>
@@ -160,7 +159,10 @@
             },
             showButtons() {
                 setTimeout(() => {
-                    this.isShowed = true
+                    this.isShowed = true;
+                    // it prevents clicking on "throw dice" button when pressing on spacebar
+                    let button = document.querySelector(".is-primary");
+                    if (button) button.blur();
                     Event.$on('event:spacebar', () => this.throwBlackDiceEvent());
                 }, 3000);
             },
@@ -173,7 +175,7 @@
             removeBlackDiceIcon() {
                 this.blackDiceIcons.splice(-1,1);
             },
-            hydrateDiceIcons(diceLeft) {
+            hydrateDiceIcons() {
                 let iconClasses = ['icon-dark-blue', 'icon-blue', 'icon-violet', 'icon-red', 'icon-orange', 'icon-yellow' ];
                 if(this.mode === 'whiteDice') iconClasses[0] = 'icon-white';
  
